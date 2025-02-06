@@ -94,12 +94,8 @@ namespace QuizMatics.Models
     }
 
 
-    public class AUQuizDto
+    public class AddQuizDto
     {
-
-        [Key]
-        public int QuizId { get; set; }
-
 
         [Required]
         [StringLength(100)]

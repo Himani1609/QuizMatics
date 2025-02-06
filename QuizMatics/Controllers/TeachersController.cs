@@ -105,8 +105,8 @@ namespace QuizMatics.Controllers
         /// or
         /// 204 No Content
         /// </returns>       
-        [HttpPut("Update/{id}")]
-        public async Task<IActionResult> UpdateTeacher(int id, AUTeacherDto updateteacherDto)
+        [HttpPut(template:"Update/{id}")]
+        public async Task<IActionResult> UpdateTeacher(int id, UpdateTeacherDto updateteacherDto)
         {
             if (id != updateteacherDto.TeacherId)
             {
@@ -122,6 +122,7 @@ namespace QuizMatics.Controllers
 
             // Update only the necessary fields
             teacher.Name = updateteacherDto.Name;
+            teacher.Email = updateteacherDto.Email;
 
             _context.Entry(teacher).State = EntityState.Modified;
 
@@ -163,23 +164,23 @@ namespace QuizMatics.Controllers
         /// api/Teachers/Add -> Add the Teacher 
         /// </example>
         [HttpPost(template: "Add")]
-        public async Task<ActionResult<Teacher>> AddTeacher(AUTeacherDto addteacherDto)
+        public async Task<ActionResult<Teacher>> AddTeacher(AddTeacherDto addteacherDto)
         {
 
             Teacher teacher = new Teacher()
             {
                 Name = addteacherDto.Name,
-                TeacherId = addteacherDto.TeacherId
+                Email = addteacherDto.Email
             };
 
             _context.Teachers.Add(teacher);
             await _context.SaveChangesAsync();
 
 
-            AUTeacherDto teacherDto = new AUTeacherDto()
+            AddTeacherDto teacherDto = new AddTeacherDto()
             {
-                TeacherId = teacher.TeacherId,
-                Name = teacher.Name
+                Name = teacher.Name,
+                Email = teacher.Email
             };
 
             return CreatedAtAction("FindTeacher", new { id = teacher.TeacherId }, teacherDto);
@@ -197,7 +198,7 @@ namespace QuizMatics.Controllers
         /// <example>
         /// api/Quizzes/Delete/{id} -> Deletes the quiz associated with {id}
         /// </example>
-        [HttpDelete("{id}")]
+        [HttpDelete(template:"Delete/{id}")]
         public async Task<IActionResult> DeleteTeacher(int id)
         {
             var teacher = await _context.Teachers.FindAsync(id);

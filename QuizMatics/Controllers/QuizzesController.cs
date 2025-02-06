@@ -176,7 +176,7 @@ namespace QuizMatics.Controllers
         /// api/Quizzes/Add -> Add the Quiz in the Quizzes table
         /// </example>
         [HttpPost(template: "Add")]
-        public async Task<ActionResult<Quiz>> AddQuiz(AUQuizDto addquizDto)
+        public async Task<ActionResult<Quiz>> AddQuiz(AddQuizDto addquizDto)
         {
 
             var lesson = await _context.Lessons.FindAsync(addquizDto.LessonId);
@@ -201,9 +201,8 @@ namespace QuizMatics.Controllers
             await _context.SaveChangesAsync();
 
 
-            AUQuizDto quizDto = new AUQuizDto()
+            AddQuizDto quizDto = new AddQuizDto()
             {
-                QuizId = quiz.QuizId,
                 Title = quiz.Title,
                 Description = quiz.Description,
                 DateCreated = quiz.DateCreated,
@@ -252,19 +251,19 @@ namespace QuizMatics.Controllers
 
 
         /// <summary>
-        /// Returns a list of Lessons linked to a specific Quiz.
+        /// Returns a list of Lesson names linked to a specific Quiz.
         /// </summary>
         /// <param name="id">Quiz ID</param>
         /// <returns>
-        /// 200 Ok - List of lessons associated with the quiz.
+        /// 200 Ok - List of lesson names associated with the quiz.
         /// or
         /// 404 Not Found - If the quiz does not exist.
         /// </returns>
         /// <example>
-        /// GET: api/Quizzes/ListOfLessons/1 -> Returns all lessons associated with Quiz ID 1.
+        /// GET: api/Quizzes/ListOfLessons/1 -> Returns all lesson names associated with Quiz ID 1.
         /// </example>
         [HttpGet("ListOfLessons/{id}")]
-        public async Task<ActionResult<IEnumerable<Lesson>>> ListOfLessons(int id)
+        public async Task<ActionResult<IEnumerable<string>>> ListOfLessons(int id)
         {
             // Fetch the quiz with its related lessons
             var quiz = await _context.Quizzes
@@ -276,16 +275,12 @@ namespace QuizMatics.Controllers
                 return NotFound($"Quiz with ID {id} not found.");
             }
 
-            // Convert Lessons into LessonDto
-            var lessonlist = quiz.Lessons?.Select(l => new Lesson
-            {
-                LessonId = l.LessonId,
-                Title = l.Title,
-                Description = l.Description
-            }).ToList();
+            // Return only the lesson titles (names)
+            var lessonNames = quiz.Lessons?.Select(l => l.Title).ToList();
 
-            return Ok(lessonlist);
+            return Ok(lessonNames);
         }
+
 
 
 

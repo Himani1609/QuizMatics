@@ -70,6 +70,7 @@ namespace QuizMatics.Models
 
         [StringLength(500)]
         public string Description { get; set; }
+        public DateOnly DateCreated { get; set; }
 
         public int TeacherId { get; set; }
     }

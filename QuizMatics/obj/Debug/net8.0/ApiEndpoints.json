@@ -69,27 +69,6 @@
   },
   {
     "ContainingType": "QuizMatics.Controllers.LessonsController",
-    "Method": "LinkQuizToLesson",
-    "RelativePath": "api/Lessons/LinkQuizToLesson",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "lessonId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "quizId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "QuizMatics.Controllers.LessonsController",
     "Method": "ListLessons",
     "RelativePath": "api/Lessons/List",
     "HttpMethod": "GET",
@@ -124,7 +103,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[QuizMatics.Models.Quiz, QuizMatics, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -133,27 +112,6 @@
         "StatusCode": 200
       }
     ]
-  },
-  {
-    "ContainingType": "QuizMatics.Controllers.LessonsController",
-    "Method": "UnlinkQuizFromLesson",
-    "RelativePath": "api/Lessons/UnlinkQuizFromLesson",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "lessonId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "quizId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
   },
   {
     "ContainingType": "QuizMatics.Controllers.LessonsController",
@@ -186,7 +144,7 @@
     "Parameters": [
       {
         "Name": "addquizDto",
-        "Type": "QuizMatics.Models.AUQuizDto",
+        "Type": "QuizMatics.Models.AddQuizDto",
         "IsRequired": true
       }
     ],
@@ -301,7 +259,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[QuizMatics.Models.Lesson, QuizMatics, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -355,22 +313,6 @@
   },
   {
     "ContainingType": "QuizMatics.Controllers.TeachersController",
-    "Method": "DeleteTeacher",
-    "RelativePath": "api/Teachers/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "QuizMatics.Controllers.TeachersController",
     "Method": "AddTeacher",
     "RelativePath": "api/Teachers/Add",
     "HttpMethod": "POST",
@@ -379,7 +321,7 @@
     "Parameters": [
       {
         "Name": "addteacherDto",
-        "Type": "QuizMatics.Models.AUTeacherDto",
+        "Type": "QuizMatics.Models.AddTeacherDto",
         "IsRequired": true
       }
     ],
@@ -394,6 +336,22 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "QuizMatics.Controllers.TeachersController",
+    "Method": "DeleteTeacher",
+    "RelativePath": "api/Teachers/Delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "QuizMatics.Controllers.TeachersController",
@@ -456,7 +414,7 @@
       },
       {
         "Name": "updateteacherDto",
-        "Type": "QuizMatics.Models.AUTeacherDto",
+        "Type": "QuizMatics.Models.UpdateTeacherDto",
         "IsRequired": true
       }
     ],

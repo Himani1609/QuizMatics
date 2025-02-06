@@ -134,6 +134,7 @@ namespace QuizMatics.Controllers
             // Update only the necessary fields
             lesson.Title = updatelessonDto.Title;
             lesson.Description = updatelessonDto.Description;
+            lesson.DateCreated = updatelessonDto.DateCreated;
             lesson.TeacherId = updatelessonDto.TeacherId;
 
             _context.Entry(lesson).State = EntityState.Modified;
@@ -241,19 +242,19 @@ namespace QuizMatics.Controllers
         }
 
         /// <summary>
-        /// Returns a list of Quizzes linked to a specific Lesson.
+        /// Returns a list of Quiz names linked to a specific Lesson.
         /// </summary>
         /// <param name="id">Lesson ID</param>
         /// <returns>
-        /// 200 Ok - List of quizzes with their ID, Title, Description, Max Time Allotted, Grade, and Difficulty.
+        /// 200 Ok - List of quiz names associated with the lesson.
         /// or
         /// 404 Not Found - If the lesson does not exist.
         /// </returns>
         /// <example>
-        /// GET: api/Lessons/ListOfQuizzes/1 -> Returns all quizzes associated with Lesson ID 1.
+        /// GET: api/Lessons/ListOfQuizzes/1 -> Returns all quiz names associated with Lesson ID 1.
         /// </example>
         [HttpGet("ListOfQuizzes/{id}")]
-        public async Task<ActionResult<IEnumerable<Quiz>>> ListOfQuizzes(int id)
+        public async Task<ActionResult<IEnumerable<string>>> ListOfQuizzes(int id)
         {
             var lesson = await _context.Lessons
                 .Include(l => l.Quizzes)  // Load related quizzes
@@ -269,20 +270,13 @@ namespace QuizMatics.Controllers
                 return NotFound($"No quizzes found for Lesson ID {id}.");
             }
 
-            // Map quizzes to return only relevant fields
-            var quizList = lesson.Quizzes.Select(q => new Quiz
-            {
-                QuizId = q.QuizId,
-                Title = q.Title,
-                Description = q.Description,
-                MaxMinsAlotted = q.MaxMinsAlotted,
-                Grade = q.Grade,
-                DifficultyLevel = q.DifficultyLevel
-            }).ToList();
+            // Return only the quiz titles (names)
+            var quizNames = lesson.Quizzes.Select(q => q.Title).ToList();
 
-            return Ok(quizList);
+            return Ok(quizNames);
         }
 
-        
+
+
     }
 }

@@ -37,7 +37,9 @@ namespace QuizMatics.Models
         public int TotalQuizzes { get; set; }
     }
 
-    public class AUTeacherDto
+
+
+    public class UpdateTeacherDto
     {
         [Key]
         public int TeacherId { get; set; }
@@ -46,5 +48,22 @@ namespace QuizMatics.Models
         [Required]
         [MaxLength(100)]
         public string Name { get; set; }
+
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+
+    }
+
+
+    public class AddTeacherDto
+    {
+        [Required]
+        [MaxLength(100)]
+        public string Name { get; set; }
+
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
     }
 }
