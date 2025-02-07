@@ -25,6 +25,7 @@ namespace QuizMatics.Controllers
         /// <summary>
         /// Returns a list of Lessons, each represented by an LessonDto with it's associated Teacher and Quizzes.
         /// </summary>
+        /// <param name="LessonDto">It includes Id, Title, Date Created, Teacher Name who created the lesson, and Number of Quizzes in a Lesson</param>
         /// <returns>
         /// 200 Ok
         /// List of lessons with it's Id, Title, Date Created, Teacher Name who created the lesson, and Number of Quizzes in a Lesson
@@ -63,7 +64,8 @@ namespace QuizMatics.Controllers
         /// <summary>
         /// Returns a Lesson specified by its {id}, represented by an LessonDto with it's associated Teacher and Quizzes.
         /// </summary>
-        /// /// <param name="id">Lesson id</param>
+        /// <param name="id">Lesson id</param>
+        /// <param name="LessonDto">It includes Id, Title, Date Created, Teacher Name who created the lesson, and Number of Quizzes in a Lesson</param>
         /// <returns>
         /// 200 Ok
         /// LessonDto : Lesson with it's given Id, Title, Date Created, Teacher Name who created the lesson, and Number of Quizzes in a Lesson
@@ -103,32 +105,32 @@ namespace QuizMatics.Controllers
         /// It updates a Lesson
         /// </summary>
         /// <param name="id">The ID of Lesson which we want to update</param>
-        /// <param name="LessonDto">The required information to update the Lesson</param>
+        /// <param name="UpdateLessonDto">The required information to update the Lesson</param>
         /// <returns>
-        /// 400 Bad Request
+        /// 400 Bad Request - If the ID in the route does not match the Lesson ID.
         /// or
-        /// 404 Not Found
+        /// 404 Not Found - If the Lesson or Teacher does not exist.
         /// or
-        /// 204 No Content
+        /// 204 No Content - If the update is successful, returns a success message.
         /// </returns>       
         [HttpPut("Update/{id}")]
         public async Task<IActionResult> UpdateLesson(int id, UpdateLessonDto updatelessonDto)
         {
             if (id != updatelessonDto.LessonId)
             {
-                return BadRequest();
+                return BadRequest(new { message = "Lesson ID mismatch." });
             }
 
             var lesson = await _context.Lessons.FindAsync(id);
             if (lesson == null)
             {
-                return NotFound();
+                return NotFound(new { message = "Lesson not found." });
             }
 
             var teacher = await _context.Teachers.FindAsync(updatelessonDto.TeacherId);
             if (teacher == null)
             {
-                return NotFound();
+                return NotFound(new { message = "Teacher not found." });
             }
 
             // Update only the necessary fields
@@ -147,7 +149,7 @@ namespace QuizMatics.Controllers
             {
                 if (!LessonExists(id))
                 {
-                    return NotFound();
+                    return NotFound(new { message = "Lesson not found after concurrency check." });
                 }
                 else
                 {
@@ -155,7 +157,7 @@ namespace QuizMatics.Controllers
                 }
             }
 
-            return NoContent(); 
+            return Ok(new { message = $"Lesson {id} updated successfully." });
         }
 
 
@@ -167,11 +169,10 @@ namespace QuizMatics.Controllers
         /// and LessonDto is the information about the Lesson displayed in the output
         /// </remarks>
         /// <param name="AddLessonDto">The required information to add the Lesson</param>
-        /// <param name="LessonDto">The output information displayed about the Lesson we added</param>
         /// <returns>
-        /// 201 Created
+        /// 201 Created - If the Lesson is successfully added.
         /// or
-        /// 404 Not Found
+        /// 404 Not Found - If the specified Teacher does not exist.
         /// </returns>
         /// <example>
         /// api/Lessons/Add -> Add the Lesson 
@@ -182,7 +183,7 @@ namespace QuizMatics.Controllers
             var teacher = await _context.Teachers.FindAsync(addlessonDto.TeacherId);
             if (teacher == null)
             {
-                return NotFound();  
+                return NotFound(new { message = "Teacher not found." });
             }
 
             Lesson lesson = new Lesson()
@@ -206,7 +207,8 @@ namespace QuizMatics.Controllers
                 Name = lesson.Teacher.Name
             };
 
-            return CreatedAtAction("FindLesson", new { id = lesson.LessonId }, lessonDto);
+            return CreatedAtAction(nameof(FindLesson), new { id = lesson.LessonId },
+            new { message = $"Lesson {lesson.LessonId} added successfully.", lessonId = lesson.LessonId });
         }
 
         /// <summary>
@@ -214,9 +216,9 @@ namespace QuizMatics.Controllers
         /// </summary>
         /// <param name="id">The id of the Lesson we want to delete</param>
         /// <returns>
-        /// 201 No Content
+        /// 200 OK - If deletion is successful, returns a success message.
         /// or
-        /// 404 Not Found
+        /// 404 Not Found - If the Lesson does not exist.
         /// </returns>
         /// <example>
         /// api/Lessons/Delete/{id} -> Deletes the lesson associated with {id}
@@ -227,13 +229,13 @@ namespace QuizMatics.Controllers
             var lesson = await _context.Lessons.FindAsync(id);
             if (lesson == null)
             {
-                return NotFound();
+                return NotFound(new { message = "Lesson not found." });
             }
 
             _context.Lessons.Remove(lesson);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok(new { message = $"Lesson {id} deleted successfully." });
         }
 
         private bool LessonExists(int id)
@@ -242,22 +244,36 @@ namespace QuizMatics.Controllers
         }
 
         /// <summary>
-        /// Returns a list of Quiz names linked to a specific Lesson.
+        /// Returns a list of quizzes associated with a specific Lesson, including quiz details like title, grade, and difficulty.
         /// </summary>
-        /// <param name="id">Lesson ID</param>
+        /// <param name="id">The ID of the lesson to retrieve quizzes for.</param>
         /// <returns>
-        /// 200 Ok - List of quiz names associated with the lesson.
+        /// 200 Ok - A list of quizzes (with their title, grade, and difficulty level) associated with the lesson.
         /// or
-        /// 404 Not Found - If the lesson does not exist.
+        /// 404 Not Found - If the lesson does not exist or if no quizzes are found for the lesson.
         /// </returns>
         /// <example>
-        /// GET: api/Lessons/ListOfQuizzes/1 -> Returns all quiz names associated with Lesson ID 1.
+        /// api/Lessons/ListOfQuizzes/9 ->
+        /// [
+        ///{
+        ///  "quizId": 10,
+        ///  "title": "Geometry Quiz Challenge",
+        ///  "grade": 7,
+        ///  "difficultyLevel": 1
+        ///},
+        /// {
+        ///  "quizId": 11,
+        ///  "title": "Geometry Quiz",
+        ///  "grade": 5,
+        ///  "difficultyLevel": 0
+        /// }
+        ///]
         /// </example>
         [HttpGet("ListOfQuizzes/{id}")]
-        public async Task<ActionResult<IEnumerable<string>>> ListOfQuizzes(int id)
+        public async Task<ActionResult<IEnumerable<ListQuizDto>>> ListOfQuizzes(int id)
         {
             var lesson = await _context.Lessons
-                .Include(l => l.Quizzes)  // Load related quizzes
+                .Include(l => l.Quizzes)
                 .FirstOrDefaultAsync(l => l.LessonId == id);
 
             if (lesson == null)
@@ -270,13 +286,16 @@ namespace QuizMatics.Controllers
                 return NotFound($"No quizzes found for Lesson ID {id}.");
             }
 
-            // Return only the quiz titles (names)
-            var quizNames = lesson.Quizzes.Select(q => q.Title).ToList();
+            var quizDtos = lesson.Quizzes.Select(q => new ListQuizDto
+            {
+                QuizId = q.QuizId,
+                Title = q.Title,
+                Grade = q.Grade,
+                DifficultyLevel = q.DifficultyLevel
+            }).ToList();
 
-            return Ok(quizNames);
+            return Ok(quizDtos);
         }
-
-
 
     }
 }

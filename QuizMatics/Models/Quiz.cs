@@ -120,4 +120,20 @@ namespace QuizMatics.Models
 
     }
 
+
+    public class ListQuizDto
+    {
+        [Key]
+        public int QuizId { get; set; }
+
+
+        [Required]
+        [StringLength(100)]
+        public string Title { get; set; }
+
+        public int Grade { get; set; }
+
+        [Required]
+        public Difficulty DifficultyLevel { get; set; }
+    }
 }

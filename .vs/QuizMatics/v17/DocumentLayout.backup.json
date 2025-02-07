@@ -3,6 +3,23 @@
   "WorkspaceRootPath": "D:\\Web_Development\\QuizMatics\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/aspnet_QuizMatics_5aed4009_00f3_42e4_9e31_bdeeadc47ea7/True/SqlTable/dbo.Quizzes.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|d:\\web_development\\quizmatics\\quizmatics\\models\\quiz.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|solutionrelative:quizmatics\\models\\quiz.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/aspnet_QuizMatics_5aed4009_00f3_42e4_9e31_bdeeadc47ea7/True/SqlTable/dbo.Lessons.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/aspnet_QuizMatics_5aed4009_00f3_42e4_9e31_bdeeadc47ea7/True/SqlTable/dbo.Teachers.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|d:\\web_development\\quizmatics\\quizmatics\\controllers\\teacherscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|solutionrelative:quizmatics\\controllers\\teacherscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|d:\\web_development\\quizmatics\\quizmatics\\controllers\\lessonscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|solutionrelative:quizmatics\\controllers\\lessonscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -13,23 +30,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|d:\\web_development\\quizmatics\\quizmatics\\models\\lesson.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|solutionrelative:quizmatics\\models\\lesson.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/aspnet_QuizMatics_5aed4009_00f3_42e4_9e31_bdeeadc47ea7/True/SqlTable/dbo.Quizzes.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/aspnet_QuizMatics_5aed4009_00f3_42e4_9e31_bdeeadc47ea7/True/SqlTable/dbo.Lessons.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|d:\\web_development\\quizmatics\\quizmatics\\models\\quiz.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|solutionrelative:quizmatics\\models\\quiz.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|d:\\web_development\\quizmatics\\quizmatics\\controllers\\teacherscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|solutionrelative:quizmatics\\controllers\\teacherscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/aspnet_QuizMatics_5aed4009_00f3_42e4_9e31_bdeeadc47ea7/True/SqlTable/dbo.Teachers.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|d:\\web_development\\quizmatics\\quizmatics\\models\\teacher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -43,33 +43,62 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
+              "Title": "dbo.Quizzes [Data]",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/aspnet_QuizMatics_5aed4009_00f3_42e4_9e31_bdeeadc47ea7/True/SqlTable/dbo.Quizzes.sql",
+              "ToolTip": "dbo.Quizzes [Data]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2025-02-07T13:57:24.758Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "dbo.Lessons [Data]",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/aspnet_QuizMatics_5aed4009_00f3_42e4_9e31_bdeeadc47ea7/True/SqlTable/dbo.Lessons.sql",
+              "ToolTip": "dbo.Lessons [Data]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2025-02-07T13:57:15.498Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "dbo.Teachers [Data]",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/aspnet_QuizMatics_5aed4009_00f3_42e4_9e31_bdeeadc47ea7/True/SqlTable/dbo.Teachers.sql",
+              "ToolTip": "dbo.Teachers [Data]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2025-02-07T13:54:47.08Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "Quiz.cs",
               "DocumentMoniker": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Models\\Quiz.cs",
               "RelativeDocumentMoniker": "QuizMatics\\Models\\Quiz.cs",
               "ToolTip": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Models\\Quiz.cs",
               "RelativeToolTip": "QuizMatics\\Models\\Quiz.cs",
-              "ViewState": "AgIAAF0AAAAAAAAAAAAIwGAAAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAAIQAAAAAAAAAAAAYwIkAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-06T15:53:05.424Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 7,
               "Title": "Lesson.cs",
               "DocumentMoniker": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Models\\Lesson.cs",
               "RelativeDocumentMoniker": "QuizMatics\\Models\\Lesson.cs",
               "ToolTip": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Models\\Lesson.cs",
               "RelativeToolTip": "QuizMatics\\Models\\Lesson.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAYwEgAAAAxAAAAAAAAAA==",
+              "ViewState": "AgIAAFkAAAAAAAAAAAAAAGIAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-06T15:22:22.346Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-06T15:22:22.346Z"
             },
             {
               "$type": "Document",
@@ -79,76 +108,44 @@
               "RelativeDocumentMoniker": "QuizMatics\\Models\\Teacher.cs",
               "ToolTip": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Models\\Teacher.cs",
               "RelativeToolTip": "QuizMatics\\Models\\Teacher.cs",
-              "ViewState": "AgIAAC4AAAAAAAAAAAAqwEIAAAApAAAAAAAAAA==",
+              "ViewState": "AgIAAC4AAAAAAAAAAAAcwEIAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-06T14:28:11.454Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-06T14:28:11.454Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "dbo.Lessons [Data]",
-              "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/aspnet_QuizMatics_5aed4009_00f3_42e4_9e31_bdeeadc47ea7/True/SqlTable/dbo.Lessons.sql",
-              "ToolTip": "dbo.Lessons [Data]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2025-02-06T14:15:12.302Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "dbo.Quizzes [Data]",
-              "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/aspnet_QuizMatics_5aed4009_00f3_42e4_9e31_bdeeadc47ea7/True/SqlTable/dbo.Quizzes.sql",
-              "ToolTip": "dbo.Quizzes [Data]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2025-02-06T14:15:07.792Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "dbo.Teachers [Data]",
-              "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/aspnet_QuizMatics_5aed4009_00f3_42e4_9e31_bdeeadc47ea7/True/SqlTable/dbo.Teachers.sql",
-              "ToolTip": "dbo.Teachers [Data]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2025-02-06T14:14:55.92Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
               "Title": "TeachersController.cs",
               "DocumentMoniker": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Controllers\\TeachersController.cs",
               "RelativeDocumentMoniker": "QuizMatics\\Controllers\\TeachersController.cs",
               "ToolTip": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Controllers\\TeachersController.cs",
               "RelativeToolTip": "QuizMatics\\Controllers\\TeachersController.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAAGsAAAAaAAAAAAAAAA==",
+              "ViewState": "AgIAAJsAAAAAAAAAAAAYwNQAAABPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-06T14:13:55.338Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 6,
               "Title": "QuizzesController.cs",
               "DocumentMoniker": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Controllers\\QuizzesController.cs",
               "RelativeDocumentMoniker": "QuizMatics\\Controllers\\QuizzesController.cs",
               "ToolTip": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Controllers\\QuizzesController.cs",
               "RelativeToolTip": "QuizMatics\\Controllers\\QuizzesController.cs",
-              "ViewState": "AgIAAPwAAAAAAAAAAAAowBoBAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAOAAAAAAAAAAAAAAwPEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-06T14:13:47.145Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-06T14:13:47.145Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "LessonsController.cs",
               "DocumentMoniker": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Controllers\\LessonsController.cs",
               "RelativeDocumentMoniker": "QuizMatics\\Controllers\\LessonsController.cs",
-              "ToolTip": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Controllers\\LessonsController.cs*",
-              "RelativeToolTip": "QuizMatics\\Controllers\\LessonsController.cs*",
-              "ViewState": "AgIAAAQBAAAAAAAAAAAqwBUBAAAAAAAAAAAAAA==",
+              "ToolTip": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Controllers\\LessonsController.cs",
+              "RelativeToolTip": "QuizMatics\\Controllers\\LessonsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAPIAAAA/AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-06T13:40:11.554Z",
               "EditorCaption": ""

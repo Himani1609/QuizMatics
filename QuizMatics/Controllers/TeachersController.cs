@@ -24,6 +24,7 @@ namespace QuizMatics.Controllers
         /// <summary>
         /// Returns a list of Teachers including the Number of Teachers they created.
         /// </summary>
+        /// <param name="TeacherDto">It includes ID, Name, Total no. of Teachers they created, Total no. of Quizzes they created</param>
         /// <returns>
         /// 200 Ok
         /// List of Teachers including ID, Name, Total no. of Teachers they created, Total no. of Quizzes they created
@@ -61,6 +62,7 @@ namespace QuizMatics.Controllers
         /// Return a Teacher specified by it's {id}
         /// </summary>
         /// /// <param name="id">Teacher's id</param>
+        /// <param name="TeacherDto">It includes Teacher's id, Name, Total no. of Teachers they created, Total no. of Quizzes they created</param>
         /// <returns>
         /// 200 Ok
         /// TeacherDto : It includes Teacher's id, Name, Total no. of Teachers they created, Total no. of Quizzes they created
@@ -97,26 +99,26 @@ namespace QuizMatics.Controllers
         /// It updates a Teacher
         /// </summary>
         /// <param name="id">The ID of Teacher which we want to update</param>
-        /// <param name="TeacherDto">The required information to update the Teacher</param>
+        /// <param name="UpdateTeacherDto">The required information to update the Teacher</param>
         /// <returns>
-        /// 400 Bad Request
+        /// 400 Bad Request - If the ID in the route does not match the Teacher ID.
         /// or
-        /// 404 Not Found
+        /// 404 Not Found - If the Teacher does not exist.
         /// or
-        /// 204 No Content
+        /// 200 OK - If the update is successful, returns a success message.
         /// </returns>       
         [HttpPut(template:"Update/{id}")]
         public async Task<IActionResult> UpdateTeacher(int id, UpdateTeacherDto updateteacherDto)
         {
             if (id != updateteacherDto.TeacherId)
             {
-                return BadRequest();
+                return BadRequest(new { message = "Teacher ID mismatch." });
             }
 
             var teacher = await _context.Teachers.FindAsync(id);
             if (teacher == null)
             {
-                return NotFound();
+                return NotFound(new { message = "Teacher not found." });
             }
 
 
@@ -134,7 +136,7 @@ namespace QuizMatics.Controllers
             {
                 if (!TeacherExists(id))
                 {
-                    return NotFound();
+                    return NotFound(new { message = "Teacher not found after concurrency check." });
                 }
                 else
                 {
@@ -142,7 +144,7 @@ namespace QuizMatics.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(new { message = $"Teacher {id} updated successfully." });
         }
 
 
@@ -154,11 +156,8 @@ namespace QuizMatics.Controllers
         /// and TeacherDto is the information about the Teacher displayed in the output
         /// </remarks>
         /// <param name="AddTeacherDto">The required information to add the Teacher</param>
-        /// <param name="TeacherDto">The output information displayed about the Teacher we added</param>
         /// <returns>
-        /// 201 Created
-        /// or
-        /// 404 Not Found
+        /// 201 Created - If the teacher is successfully added.
         /// </returns>
         /// <example>
         /// api/Teachers/Add -> Add the Teacher 
@@ -183,7 +182,8 @@ namespace QuizMatics.Controllers
                 Email = teacher.Email
             };
 
-            return CreatedAtAction("FindTeacher", new { id = teacher.TeacherId }, teacherDto);
+            return CreatedAtAction(nameof(FindTeacher), new { id = teacher.TeacherId },
+            new { message = $"Teacher {teacher.TeacherId} added successfully.", teacherId = teacher.TeacherId });
         }
 
         /// <summary>
@@ -191,9 +191,9 @@ namespace QuizMatics.Controllers
         /// </summary>
         /// <param name="id">The id of the Quiz we want to delete</param>
         /// <returns>
-        /// 201 No Content
+        /// 2200 OK - If deletion is successful, returns a success message.
         /// or
-        /// 404 Not Found
+        /// 404 Not Found - If the teacher does not exist.
         /// </returns>
         /// <example>
         /// api/Quizzes/Delete/{id} -> Deletes the quiz associated with {id}
@@ -204,13 +204,13 @@ namespace QuizMatics.Controllers
             var teacher = await _context.Teachers.FindAsync(id);
             if (teacher == null)
             {
-                return NotFound();
+                return NotFound(new { message = "Teacher not found." });
             }
 
             _context.Teachers.Remove(teacher);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok(new { message = $"Teacher {id} deleted successfully." });
         }
 
         private bool TeacherExists(int id)
