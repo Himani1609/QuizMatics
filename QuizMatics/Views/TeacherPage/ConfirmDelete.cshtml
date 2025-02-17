@@ -1,0 +1,12 @@
+﻿@model TeacherDto
+
+<h2>Are you sure you want to delete this teacher?</h2>
+
+<div>
+    <p class="text-primary">Name: @Model.Name</p>
+</div>
+
+<form asp-action="Delete" asp-route-id="@Model.TeacherId" method="post">
+    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+    <a asp-action="Details" asp-route-id="@Model.TeacherId" class="btn btn-secondary">Cancel</a>
+</form>

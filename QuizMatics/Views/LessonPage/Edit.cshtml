@@ -1,0 +1,46 @@
+﻿@model UpdateLessonDto
+
+<h2>Edit Lesson</h2>
+
+<form asp-action="Edit" asp-route-id="@Model.LessonId" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="LessonId" />
+
+    <div class="form-group">
+        <label asp-for="Title" class="control-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DateCreated" class="control-label"></label>
+        <input asp-for="DateCreated" class="form-control" type="date" />
+        <span asp-validation-for="DateCreated" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TeacherId" class="control-label"></label>
+        <select asp-for="TeacherId" class="form-control">
+            <option value="">Select Teacher</option>
+            @foreach (var teacher in ViewBag.Teachers)
+            {
+                <option value="@teacher.TeacherId">@teacher.Name</option>
+            }
+        </select>
+        <span asp-validation-for="TeacherId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </div>
+
+    <div class="form-group">
+        <a asp-action="Details" asp-route-id="@Model.LessonId" class="btn btn-secondary">Back to Details</a>
+    </div>
+</form>

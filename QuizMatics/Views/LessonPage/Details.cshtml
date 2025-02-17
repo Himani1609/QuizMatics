@@ -1,0 +1,84 @@
+﻿@model QuizMatics.Models.ViewModels.LessonDetails
+
+@{
+    ViewData["Title"] = "Lesson Details";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <strong>Lesson ID:</strong> @Model.Lesson.LessonId
+</div>
+<div>
+    <strong>Title:</strong> @Model.Lesson.Title
+</div>
+<div>
+    <strong>Description:</strong> @Model.Lesson.Description
+</div>
+<div>
+    <strong>Date Created:</strong> @Model.Lesson.DateCreated
+</div>
+<div>
+    <strong>Teacher:</strong> @Model.Lesson.Name
+</div>
+
+<h2>Quizzes Associated with this Lesson</h2>
+@if (Model.ListQuizzes.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Quiz ID</th>
+                <th>Title</th>
+                <th>Grade</th>
+                <th>Difficulty Level</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var quiz in Model.ListQuizzes)
+            {
+                <tr>
+                    <td>@quiz.QuizId</td>
+                    <td>@quiz.Title</td>
+                    <td>@quiz.Grade</td>
+                    <td>@quiz.DifficultyLevel</td>
+                    <td>
+                        <a asp-controller="QuizPage" asp-action="Details" asp-route-id="@quiz.QuizId" class="btn btn-info btn-sm"> View Details</a>
+                        <!-- Unlink Button -->
+                        <form asp-action="UnlinkQuiz" method="post" style="display:inline;">
+                            <input type="hidden" name="lessonId" value="@Model.Lesson.LessonId" />
+                            <input type="hidden" name="quizId" value="@quiz.QuizId" />
+                            <button type="submit" class="btn btn-danger btn-sm"> Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No quizzes are associated with this lesson.</p>
+}
+
+<hr />
+
+<!-- Link a Quiz -->
+<h2>Link a Quiz</h2>
+<form asp-action="LinkQuiz" method="post">
+    <input type="hidden" name="lessonId" value="@Model.Lesson.LessonId" />
+    <div class="form-group">
+        <label for="quizDropdown">Select a Quiz:</label>
+        <select name="quizId" id="quizDropdown" class="form-control" asp-items="ViewBag.QuizDropdown">
+            <option value="">-- Select a Quiz --</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Link Quiz</button>
+</form>
+
+<hr />
+
+<a asp-action="List" class="btn btn-primary">Back to List</a>
+<a asp-action="Edit" asp-route-id="@Model.Lesson.LessonId" class="btn btn-secondary"> Edit</a>
+<a asp-action="Delete" asp-route-id="@Model.Lesson.LessonId" class="btn btn-danger"> Delete</a>

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuizMatics.Data;
 using QuizMatics.Models;
+using QuizMatics.Interfaces;
 
 namespace QuizMatics.Controllers
 {
@@ -14,18 +15,21 @@ namespace QuizMatics.Controllers
     [ApiController]
     public class TeachersController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ITeacherService _teacherservice;
 
-        public TeachersController(ApplicationDbContext context)
+        public TeachersController(ITeacherService context)
         {
-            _context = context;
+            _teacherservice = context;
         }
+
+        // Controllers handle HTTP requests and call the service layer to process business logic.
 
         /// <summary>
         /// Returns a list of Teachers including the Number of Teachers they created.
         /// </summary>
         /// <param name="TeacherDto">It includes ID, Name, Total no. of Teachers they created, Total no. of Quizzes they created</param>
         /// <returns>
+        /// HTTP RESPONSE
         /// 200 Ok
         /// List of Teachers including ID, Name, Total no. of Teachers they created, Total no. of Quizzes they created
         /// </returns>
@@ -35,24 +39,10 @@ namespace QuizMatics.Controllers
         [HttpGet(template: "List")]
         public async Task<ActionResult<IEnumerable<TeacherDto>>> ListTeachers()
         {
-            List<Teacher> Teachers = await _context.Teachers
-                .Include(t => t.Lessons)
-                .ThenInclude(t => t.Quizzes)
-                .ToListAsync();
+            // controller is using ITeacherService to call for the List of Teachers
+            // and the ITeacherService is calling TeacherService to implement this
+            IEnumerable<TeacherDto> TeacherDtos = await _teacherservice.ListTeachers();
 
-            List<TeacherDto> TeacherDtos = new List<TeacherDto>();
-
-            foreach (Teacher Teacher in Teachers)
-            {
-                TeacherDtos.Add(new TeacherDto()
-                {
-                    TeacherId =Teacher.TeacherId,
-                    Name = Teacher.Name,
-                    TotalLessons = Teacher.Lessons?.Count() ?? 0,
-                    TotalQuizzes = Teacher.Lessons != null ? Teacher.Lessons.SelectMany(l => l.Quizzes).Count() : 0
-                });
-
-            }
             // return 200 OK with TeacherDtos
             return Ok(TeacherDtos);
         }
@@ -64,35 +54,28 @@ namespace QuizMatics.Controllers
         /// /// <param name="id">Teacher's id</param>
         /// <param name="TeacherDto">It includes Teacher's id, Name, Total no. of Teachers they created, Total no. of Quizzes they created</param>
         /// <returns>
+        /// HTTP RESPONSE
         /// 200 Ok
         /// TeacherDto : It includes Teacher's id, Name, Total no. of Teachers they created, Total no. of Quizzes they created
         /// or
-        /// 404 Not Found when there is no Teacher for that {id}
+        /// 404 Not Found: "Teacher with {id} doesn't exist" when there is no Teacher for that {id}
         /// </returns>
         /// <example>
         /// GET: api/Teachers/Find/{id} -> {TeacherId: 1, Name: "Apurva", TotalTeachers: 2, TotalQuizzes:2}
         [HttpGet(template: "Find/{id}")]
         public async Task<ActionResult<TeacherDto>> FindTeacher(int id)
         {
-            var teacher = await _context.Teachers
-                .Include(t => t.Lessons)
-                .ThenInclude(t => t.Quizzes)
-                .FirstOrDefaultAsync(l => l.TeacherId == id);
+            var teacher = await _teacherservice.FindTeacher(id);
 
             if (teacher == null)
             {
-                return NotFound();
+                return NotFound($"Teacher with {id} doesn't exist");
+            }
+            else
+            {
+                return Ok(teacher);
             }
 
-            TeacherDto teacherDto = new TeacherDto()
-            {
-                TeacherId = teacher.TeacherId,
-                Name = teacher.Name,
-                TotalLessons = teacher.Lessons?.Count() ?? 0,
-                TotalQuizzes = teacher.Lessons != null ? teacher.Lessons.SelectMany(l => l.Quizzes).Count() : 0
-            };
-
-            return Ok(teacherDto);
         }
 
         /// <summary>
@@ -101,51 +84,38 @@ namespace QuizMatics.Controllers
         /// <param name="id">The ID of Teacher which we want to update</param>
         /// <param name="UpdateTeacherDto">The required information to update the Teacher</param>
         /// <returns>
-        /// 400 Bad Request - If the ID in the route does not match the Teacher ID.
+        /// HTTP RESPONSE
+        /// 400 Bad Request:"Teacher ID mismatch.": If the ID in the route does not match the Teacher ID.
         /// or
-        /// 404 Not Found - If the Teacher does not exist.
+        /// 404 Not Found: "Teacher not found.": If the Teacher does not exist.
         /// or
-        /// 200 OK - If the update is successful, returns a success message.
+        /// 500 Internal Server Error: "An unexpected error occurred while updating the teacher.": If there is an error updating the Teacher.
+        /// or
+        /// 200 OK:"Teacher with ID {id} updated successfully.": If the update is successful, returns a success message "Teacher Updated Successfully"
         /// </returns>       
-        [HttpPut(template:"Update/{id}")]
-        public async Task<IActionResult> UpdateTeacher(int id, UpdateTeacherDto updateteacherDto)
+        [HttpPut(template: "Update/{id}")]
+        public async Task<ActionResult> UpdateTeacher(int id, UpdateTeacherDto updateteacherDto)
         {
+
             if (id != updateteacherDto.TeacherId)
             {
                 return BadRequest(new { message = "Teacher ID mismatch." });
             }
 
-            var teacher = await _context.Teachers.FindAsync(id);
-            if (teacher == null)
+            ServiceResponse response = await _teacherservice.UpdateTeacher(id, updateteacherDto);
+
+            if (response.Status == ServiceResponse.ServiceStatus.NotFound)
             {
-                return NotFound(new { message = "Teacher not found." });
+                return NotFound(new { error = "Teacher not found." });
+            }
+            else if (response.Status == ServiceResponse.ServiceStatus.Error)
+            {
+                return StatusCode(500, new { error = "An unexpected error occurred while updating the teacher." });
             }
 
-
-            // Update only the necessary fields
-            teacher.Name = updateteacherDto.Name;
-            teacher.Email = updateteacherDto.Email;
-
-            _context.Entry(teacher).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TeacherExists(id))
-                {
-                    return NotFound(new { message = "Teacher not found after concurrency check." });
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return Ok(new { message = $"Teacher {id} updated successfully." });
+            return Ok(new { message = $"Teacher with ID {id} updated successfully." });
         }
+
 
 
         /// <summary>
@@ -157,33 +127,30 @@ namespace QuizMatics.Controllers
         /// </remarks>
         /// <param name="AddTeacherDto">The required information to add the Teacher</param>
         /// <returns>
-        /// 201 Created - If the teacher is successfully added.
+        /// HTTP RESPONSE
+        /// 201 Created: "Teacher added successfully with ID {response.CreatedId}": If the teacher is successfully added.
+        /// or
+        /// 500 Internal Server Error: "An unexpected error occurred while updating the teacher.": If there is an error updating the teacher.
         /// </returns>
         /// <example>
         /// api/Teachers/Add -> Add the Teacher 
         /// </example>
         [HttpPost(template: "Add")]
-        public async Task<ActionResult<Teacher>> AddTeacher(AddTeacherDto addteacherDto)
+        public async Task<ActionResult> AddTeacher(AddTeacherDto addteacherDto)
         {
 
-            Teacher teacher = new Teacher()
+            ServiceResponse response = await _teacherservice.AddTeacher(addteacherDto);
+
+            if (response.Status == ServiceResponse.ServiceStatus.Error)
             {
-                Name = addteacherDto.Name,
-                Email = addteacherDto.Email
-            };
+                return StatusCode(500, new { error = "An unexpected error occurred while adding the teacher." });
+            }
 
-            _context.Teachers.Add(teacher);
-            await _context.SaveChangesAsync();
-
-
-            AddTeacherDto teacherDto = new AddTeacherDto()
+            return CreatedAtAction("FindTeacher", new { id = response.CreatedId }, new
             {
-                Name = teacher.Name,
-                Email = teacher.Email
-            };
-
-            return CreatedAtAction(nameof(FindTeacher), new { id = teacher.TeacherId },
-            new { message = $"Teacher {teacher.TeacherId} added successfully.", teacherId = teacher.TeacherId });
+                message = $"Teacher added successfully with ID {response.CreatedId}",
+                teacherId = response.CreatedId
+            });
         }
 
         /// <summary>
@@ -191,31 +158,33 @@ namespace QuizMatics.Controllers
         /// </summary>
         /// <param name="id">The id of the Quiz we want to delete</param>
         /// <returns>
-        /// 2200 OK - If deletion is successful, returns a success message.
+        /// HTTP RESPONSE
+        /// 200 OK: "Teacher with ID {id} deleted successfully.": If deletion is successful, returns a success message.
         /// or
-        /// 404 Not Found - If the teacher does not exist.
+        /// 404 Not Found: "Teacher not found.": If the teacher does not exist.
+        /// or
+        /// 500 Internal Server Error: "An unexpected error occurred while deleting the teacher.": If there is an error deleting the teacher.
         /// </returns>
         /// <example>
         /// api/Quizzes/Delete/{id} -> Deletes the quiz associated with {id}
         /// </example>
-        [HttpDelete(template:"Delete/{id}")]
-        public async Task<IActionResult> DeleteTeacher(int id)
+        [HttpDelete(template: "Delete/{id}")]
+        public async Task<ActionResult> DeleteTeacher(int id)
         {
-            var teacher = await _context.Teachers.FindAsync(id);
-            if (teacher == null)
+            ServiceResponse response = await _teacherservice.DeleteTeacher(id);
+
+            if (response.Status == ServiceResponse.ServiceStatus.NotFound)
             {
-                return NotFound(new { message = "Teacher not found." });
+                return NotFound(new { error = "Teacher not found." });
+            }
+            else if (response.Status == ServiceResponse.ServiceStatus.Error)
+            {
+                return StatusCode(500, new { error = "An unexpected error occurred while deleting the teacher." });
             }
 
-            _context.Teachers.Remove(teacher);
-            await _context.SaveChangesAsync();
-
-            return Ok(new { message = $"Teacher {id} deleted successfully." });
+            return Ok(new { message = $"Teacher with ID {id} deleted successfully." });
         }
 
-        private bool TeacherExists(int id)
-        {
-            return _context.Teachers.Any(e => e.TeacherId == id);
-        }
+
     }
 }

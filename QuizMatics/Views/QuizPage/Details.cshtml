@@ -1,0 +1,61 @@
+﻿@model QuizMatics.Models.ViewModels.QuizDetails
+
+@{
+    ViewData["Title"] = "Quiz Details";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <strong>Quiz ID:</strong> @Model.Quiz.QuizId
+</div>
+<div>
+    <strong>Title:</strong> @Model.Quiz.Title
+</div>
+<div>
+    <strong>Description:</strong> @Model.Quiz.Description
+</div>
+<div>
+    <strong>Max Mins Allotted:</strong> @Model.Quiz.MaxMinsAlotted
+</div>
+<div>
+    <strong>Grade:</strong> @Model.Quiz.Grade
+</div>
+<div>
+    <strong>Difficulty Level:</strong> @Model.Quiz.DifficultyLevel
+</div>
+
+<h2>Lessons Associated with this Quiz</h2>
+@if (Model.Lessons.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Lesson ID</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Date Created</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var lesson in Model.Lessons)
+            {
+                <tr>
+                    <td>@lesson.LessonId</td>
+                    <td>@lesson.Title</td>
+                    <td>@lesson.Description</td>
+                    <td>@lesson.DateCreated.ToString("yyyy-MM-dd")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No lessons are associated with this quiz.</p>
+}
+
+<hr />
+<a asp-action="List" class="btn btn-primary">Back to List</a>
+<a asp-action="Edit" asp-route-id="@Model.Quiz.QuizId" class="btn btn-secondary">Edit</a>
+<a asp-action="Delete" asp-route-id="@Model.Quiz.QuizId" class="btn btn-danger">Delete</a>

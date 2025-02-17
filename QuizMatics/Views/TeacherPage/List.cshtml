@@ -1,0 +1,46 @@
+﻿@model IEnumerable<QuizMatics.Models.TeacherDto>
+
+@{
+    ViewData["Title"] = "Teacher List";
+}
+
+<h1>@ViewData["Title"]</h1>
+<div>
+    <a asp-action="Add" class="btn btn-primary">Add New Teacher</a>
+</div>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Total Lessons</th>
+                <th>Total Quizzes</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var teacher in Model)
+            {
+                <tr>
+                    <td>@teacher.TeacherId</td>
+                    <td>@teacher.Name</td>
+                    <td>@teacher.TotalLessons</td>
+                    <td>@teacher.TotalQuizzes</td>
+                    <td>
+                        <a class="btn btn-primary"  href="@Url.Action("Details", "TeacherPage", new { id = teacher.TeacherId })">View Details</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-secondary"  href="@Url.Action("Edit", "TeacherPage", new { id = teacher.TeacherId })">Edit</a>
+                    </td>                    
+                    <td>
+                        <a class="btn btn-danger" href="@Url.Action("Delete", "TeacherPage", new { id = teacher.TeacherId })">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

@@ -2,8 +2,19 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using QuizMatics.Data;
+using QuizMatics.Interfaces;
+using QuizMatics.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+builder.Services.AddControllersWithViews();
+
+// Associate service interfaces with their implementations
+builder.Services.AddScoped<ITeacherService, TeacherService>();
+builder.Services.AddScoped<ILessonService, LessonService>();
+builder.Services.AddScoped<IQuizService, QuizService>();
+
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")

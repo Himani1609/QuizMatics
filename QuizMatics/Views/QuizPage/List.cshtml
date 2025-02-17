@@ -1,0 +1,53 @@
+﻿@model IEnumerable<QuizMatics.Models.QuizDto>
+
+@{
+    ViewData["Title"] = "Quiz List";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <a asp-action="Add" class="btn btn-primary">Add New Quiz</a>
+</div>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>MaxMinsAlotted</th>
+                <th>Grade</th>
+                <th>DifficultyLevel</th>
+                <th>Total Lessons</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var quiz in Model)
+            {
+                <tr>
+                    <td>@quiz.QuizId</td>
+                    <td>@quiz.Title</td>
+                    <td>@quiz.Description</td>
+                    <td>@quiz.MaxMinsAlotted</td>
+                    <td>@quiz.Grade</td>
+                    <td>@quiz.DifficultyLevel</td>
+                    <td>@quiz.TotalLessons</td>
+                    <td>
+                        <a class="btn btn-primary" href="@Url.Action("Details", "QuizPage", new { id = quiz.QuizId })">View Details</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-secondary" href="@Url.Action("Edit", "QuizPage", new { id = quiz.QuizId })">Edit</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger" href="@Url.Action("Delete", "QuizPage", new { id = quiz.QuizId })">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

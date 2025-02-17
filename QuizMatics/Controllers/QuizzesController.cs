@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using QuizMatics.Data;
 using QuizMatics.Data.Migrations;
 using QuizMatics.Models;
+using QuizMatics.Interfaces;
+using QuizMatics.Services;
 
 namespace QuizMatics.Controllers
 {
@@ -16,11 +18,11 @@ namespace QuizMatics.Controllers
     [ApiController]
     public class QuizzesController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IQuizService _quizservice;
 
-        public QuizzesController(ApplicationDbContext context)
+        public QuizzesController(IQuizService context)
         {
-            _context = context;
+            _quizservice = context;
         }
 
         /// <summary>
@@ -28,6 +30,7 @@ namespace QuizMatics.Controllers
         /// </summary>
         /// <param name="QuizDto">It includes Id, Title, Description, Max Minutes Alotted for the quiz, Grade level, Difficulty level and Number of lessons it is a part of.</param>
         /// <returns>
+        /// HTTP RESPONSE
         /// 200 Ok
         /// List of quizzes with it's Id, Title, Description, Difficulty level, Max Minutes alloted for the quiz, Grade level, Total Lessons in which this quiz is a part of.
         /// </returns>
@@ -37,29 +40,10 @@ namespace QuizMatics.Controllers
         [HttpGet(template: "List")]
         public async Task<ActionResult<IEnumerable<QuizDto>>> ListQuizzes()
         {
-            List<Quiz> Quizzes = await _context.Quizzes
-                .Include(q => q.Lessons)
-                .ToListAsync();
 
-            List<QuizDto> QuizDtos = new List<QuizDto>();
+            IEnumerable<QuizDto> QuizDtos = await _quizservice.ListQuizzes();
 
-            foreach (Quiz Quiz in Quizzes)
-            {
-                QuizDtos.Add(new QuizDto()
-                {
-                    QuizId = Quiz.QuizId,
-                    Title = Quiz.Title,
-                    Description = Quiz.Description,
-                    DifficultyLevel = Quiz.DifficultyLevel,
-                    Grade = Quiz.Grade,
-                    MaxMinsAlotted = Quiz.MaxMinsAlotted,
-                    TotalLessons = Quiz.Lessons?.Count() ?? 0,
-                    LessonNames = Quiz.Lessons != null ? Quiz.Lessons.Select(l => l.Title).ToList() : new List<string>()
-
-                });
-
-            }
-            // return 200 OK with QuizDtos
+            // return 200 OK with TeacherDtos
             return Ok(QuizDtos);
         }
 
@@ -69,10 +53,11 @@ namespace QuizMatics.Controllers
         /// <param name="id">Quiz id</param>
         /// <param name="QuizDto">It includes Id, Title, Description, Max Minutes Alotted for the quiz, Grade level, Difficulty level and Number of lessons it is a part of.</param>
         /// <returns>
+        /// HTTP RESPONSE
         /// 200 Ok
         /// QuizDto : Quiz with it's given Id, Title, Description, Max Minutes Alotted for the quiz, Grade level, Difficulty level and Number of lessons it is a part of.
         /// or
-        /// 404 Not Found when there is no Quiz of that id
+        /// 404 Not Found: $"Quiz with ID {id} not found.": when there is no Quiz of that id
         /// </returns>
         /// <example>
         /// GET: api/Quizzes/Find/{id} -> {QuizDto} represented as {QuizId:1, Title:"Algebra Basics Quiz", Difficulty Level:0, Grade:9, MaxMinsAlotted:60, TotalLessons:2 }
@@ -80,29 +65,16 @@ namespace QuizMatics.Controllers
         [HttpGet(template: "Find/{id}")]
         public async Task<ActionResult<QuizDto>> FindQuiz(int id)
         {
-            var quiz = await _context.Quizzes
-                .Include(l => l.Lessons)
-                .FirstOrDefaultAsync(l => l.QuizId == id);
+            var quiz = await _quizservice.FindQuiz(id);
 
             if (quiz == null)
             {
-                return NotFound();
+                return NotFound($"Quiz with ID {id} not found.");
             }
-
-            QuizDto quizDto = new QuizDto()
+            else
             {
-                QuizId = quiz.QuizId,
-                Title = quiz.Title,
-                Description = quiz.Description,
-                DifficultyLevel = quiz.DifficultyLevel,
-                Grade = quiz.Grade,
-                MaxMinsAlotted = quiz.MaxMinsAlotted,
-                TotalLessons = quiz.Lessons?.Count() ?? 0,
-                LessonNames = quiz.Lessons.Select(q => q.Title).ToList()
-
-            };
-
-            return Ok(quizDto);
+                return Ok(quiz);
+            }
         }
 
         /// <summary>
@@ -111,11 +83,14 @@ namespace QuizMatics.Controllers
         /// <param name="id">The ID of Quiz which we want to update</param>
         /// <param name="UpdateQuizDto">The required information to update the Quiz</param>
         /// <returns>
-        /// 400 Bad Request - If the ID in the route does not match the Quiz ID.
+        /// HTTP RESPONSE
+        /// 400 Bad Request:"Quiz ID mismatch.": If the ID in the route does not match the Quiz ID.
         /// or
-        /// 404 Not Found - If the Quiz does not exist.
+        /// 404 Not Found: "Quiz not found.": If the Quiz does not exist.
         /// or
-        /// 200 OK - If the update is successful, returns a success message.
+        /// 500 Internal Server Error: "An unexpected error occurred while updating the quiz.": If there is an error updating the quiz.
+        /// or
+        /// 200 OK: $"Quiz with ID {id} updated successfully.": If the update is successful, returns a success message.
         /// </returns>       
         [HttpPut("Update/{id}")]
         public async Task<IActionResult> UpdateQuiz(int id, UpdateQuizDto updatequizDto)
@@ -125,38 +100,18 @@ namespace QuizMatics.Controllers
                 return BadRequest(new { message = "Quiz ID mismatch." });
             }
 
-            var quiz = await _context.Quizzes.FindAsync(id);
-            if (quiz == null)
+            ServiceResponse response = await _quizservice.UpdateQuiz(id, updatequizDto);
+
+            if (response.Status == ServiceResponse.ServiceStatus.NotFound)
             {
-                return NotFound(new { message = "Quiz not found." });
+                return NotFound(new { error = "Quiz not found." });
+            }
+            else if (response.Status == ServiceResponse.ServiceStatus.Error)
+            {
+                return StatusCode(500, new { error = "An unexpected error occurred while updating the quiz." });
             }
 
-            quiz.Title = updatequizDto.Title;
-            quiz.Description = updatequizDto.Description;   
-            quiz.DifficultyLevel = updatequizDto.DifficultyLevel;
-            quiz.Grade = updatequizDto.Grade;
-            quiz.MaxMinsAlotted = updatequizDto.MaxMinsAlotted;
-
-
-            _context.Entry(quiz).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!QuizExists(id))
-                {
-                    return NotFound(new { message = "Quiz not found after concurrency check." });
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return Ok(new { message = $"Quiz {id} updated successfully." });
+            return Ok(new { message = $"Quiz with ID {id} updated successfully." });
         }
 
 
@@ -169,64 +124,50 @@ namespace QuizMatics.Controllers
         /// </remarks>
         /// <param name="AddQuizDto">The required information to add the Quiz</param>
         /// <returns>
-        /// 201 Created - If the quiz is successfully added.
+        /// HTTP RESPONSE
+        /// 201 Created:"Quiz added successfully with ID {response.CreatedId}": If the quiz is successfully added.
         /// or
-        /// 404 Not Found - If the specified Lesson does not exist.
+        /// 404 Not Found: "Lesson not found. Cannot add quiz.": If the lesson for LessonId added in request body is not found
+        /// or
+        /// 500 Internal Server Error: "An unexpected error occurred while adding the quiz.": If there is an error adding teh quiz.
         /// </returns>
         /// <example>
         /// api/Quizzes/Add -> Add the Quiz in the Quizzes table
         /// </example>
         [HttpPost(template: "Add")]
-        public async Task<ActionResult<Quiz>> AddQuiz(AddQuizDto addquizDto)
+        public async Task<IActionResult> AddQuiz(AddQuizDto addquizDto)
         {
+            ServiceResponse response = await _quizservice.AddQuiz(addquizDto);
 
-            var lesson = await _context.Lessons.FindAsync(addquizDto.LessonId);
-            if (lesson == null)
+            if (response.Status == ServiceResponse.ServiceStatus.NotFound)
             {
-                return NotFound(new { message = "Lesson not found." });
+                return NotFound(new { error = "Lesson not found. Cannot add quiz." });
             }
 
-            Quiz quiz = new Quiz()
+            if (response.Status == ServiceResponse.ServiceStatus.Error)
             {
-                Title = addquizDto.Title,
-                Description = addquizDto.Description,
-                DateCreated = addquizDto.DateCreated,
-                MaxMinsAlotted = addquizDto.MaxMinsAlotted,
-                Grade = addquizDto.Grade,
-                DifficultyLevel = addquizDto.DifficultyLevel,
-                Lessons = new List<Lesson>() { lesson }
+                return StatusCode(500, new { error = "An unexpected error occurred while adding the quiz." });
+            }
 
-            };
-
-            _context.Quizzes.Add(quiz);
-            await _context.SaveChangesAsync();
-
-
-            AddQuizDto quizDto = new AddQuizDto()
+            return CreatedAtAction("FindTeacher", new { id = response.CreatedId }, new
             {
-                Title = quiz.Title,
-                Description = quiz.Description,
-                DateCreated = quiz.DateCreated,
-                DifficultyLevel = quiz.DifficultyLevel,
-                Grade = quiz.Grade,
-                MaxMinsAlotted = quiz.MaxMinsAlotted,
-                LessonId = addquizDto.LessonId
-
-
-            };
-
-            return CreatedAtAction(nameof(FindQuiz), new { id = quiz.QuizId },
-            new { message = $"Quiz {quiz.QuizId} added successfully.", quizId = quiz.QuizId });
+                message = $"Quiz added successfully with ID {response.CreatedId}",
+                quizId = response.CreatedId
+            });
         }
+
 
         /// <summary>
         /// Delete a Quiz specified by it's {id}
         /// </summary>
         /// <param name="id">The id of the Quiz we want to delete</param>
         /// <returns>
-        /// 200 OK - If deletion is successful, returns a success message.
+        /// HTTP RESPONSE
+        /// 200 OK: "Quiz with ID {id} deleted successfully.": If deletion is successful, returns a success message.
         /// or
-        /// 404 Not Found
+        /// 404 Not Found:  "Quiz not found.": When quiz of that {id} is not found.
+        /// or
+        /// 505 Internal server Error: "An unexpected error occurred while deleting the quiz.": if there is an error deleting the quiz.
         /// </returns>
         /// <example>
         /// api/Quizzes/Delete/{id} -> Deletes the quiz associated with {id}
@@ -234,23 +175,19 @@ namespace QuizMatics.Controllers
         [HttpDelete(template: "Delete/{id}")]
         public async Task<IActionResult> DeleteQuiz(int id)
         {
-            var quiz = await _context.Quizzes.FindAsync(id);
-            if (quiz == null)
+            ServiceResponse response = await _quizservice.DeleteQuiz(id);
+
+            if (response.Status == ServiceResponse.ServiceStatus.NotFound)
             {
-                return NotFound(new { message = "Quiz not found." });
+                return NotFound(new { error = "Quiz not found." });
+            }
+            else if (response.Status == ServiceResponse.ServiceStatus.Error)
+            {
+                return StatusCode(500, new { error = "An unexpected error occurred while deleting the quiz." });
             }
 
-            _context.Quizzes.Remove(quiz);
-            await _context.SaveChangesAsync();
-
-            return Ok(new { message = $"Quiz {id} deleted successfully." });
+            return Ok(new { message = $"Quiz with ID {id} deleted successfully." });
         }
-
-        private bool QuizExists(int id)
-        {
-            return _context.Quizzes.Any(e => e.QuizId == id);
-        }
-
 
         /// <summary>
         /// Retrieves a list of lessons associated with a specific quiz identified by its ID.
@@ -258,9 +195,12 @@ namespace QuizMatics.Controllers
         /// and the name of the teacher associated with the lesson.
         /// </summary>
         /// <param name="id">The ID of the quiz to retrieve lessons for.</param>
-        /// <returns>A list of <see cref="ListLessonDto"/> containing lesson details and teacher names.</returns>
-        /// <response code="200">Returns a list of lessons with teacher names.</response>
-        /// <response code="404">If no quiz is found with the specified ID.</response>
+        /// <returns>
+        /// HTTP RESPONSE
+        /// ListLessonDto: A list of lessons containing lesson details and teacher names.
+        /// or
+        /// 404 Not Found: "No lessons found for Quiz ID {id}.": If the quiz does not exist for that {id} or if no lessons are found for the quiz.
+        /// </returns>
         /// <example>
         /// GET /ListOfLessons/1 ->
         /// Returns:
@@ -278,35 +218,22 @@ namespace QuizMatics.Controllers
         ///  "dateCreated": "2025-02-02",
         ///  "name": "Apurva"
         ///}
-         /// ]
+        /// ]
         /// </example>
 
-        [HttpGet("ListOfLessons/{id}")]
-        public async Task<ActionResult<IEnumerable<ListLessonDto>>> ListOfLessons(int id)
-        {
-            
-            var quiz = await _context.Quizzes
-                .Include(q => q.Lessons)
-                .ThenInclude(l => l.Teacher) 
-                .FirstOrDefaultAsync(q => q.QuizId == id);
 
-            if (quiz == null)
+        [HttpGet("ListOfLessons/{id}")]
+        public async Task<IActionResult> ListOfLessons(int id)
+        {
+            var response = await _quizservice.ListOfLessons(id);
+
+            if (response == null)
             {
-                return NotFound($"Quiz with ID {id} not found.");
+                return NotFound($"No lessons found for Quiz ID {id}.");
             }
 
-            var lessonDtos = quiz.Lessons?.Select(l => new ListLessonDto
-            {
-                LessonId = l.LessonId,
-                Title = l.Title,
-                Description = l.Description,
-                DateCreated = l.DateCreated,
-                Name = l.Teacher?.Name 
-            }).ToList();
-
-            return Ok(lessonDtos);
+            return Ok(response);
         }
-
 
 
 
@@ -316,9 +243,13 @@ namespace QuizMatics.Controllers
         /// <param name="lessonId">The ID of the Lesson.</param>
         /// <param name="quizId">The ID of the Quiz.</param>
         /// <returns>
-        /// Returns a success message if the Quiz is linked to the Lesson.
-        /// Returns a 404 if the Lesson or Quiz is not found.
-        /// Returns a 400 if the Quiz is already linked to the Lesson.
+        /// 200 Ok:"Quiz with {quizId} linked to Lesson with {lessonId} successfully.": if the Quiz is linked to the Lesson.
+        /// or
+        /// 505 Interval Server Error: "An unexpected error occurred while linking the quiz to a lesson.": If there is an error linking quiz to a lesson
+        /// or
+        /// 404 Not Found: "Lesson or Quiz not found.":  if the Lesson or Quiz is not found.
+        /// or
+        /// 409 Conflict: "Quiz is already linked to this lesson." : If quiz is already linked with the lesson
         /// </returns>
         /// <example>
         /// api/Quizzes/LinkQuiz?linkId=1^&quizId=2 -> Quiz 2 linked to Lesson 1.
@@ -326,28 +257,23 @@ namespace QuizMatics.Controllers
         [HttpPost("LinkQuiz")]
         public async Task<IActionResult> LinkQuizToLesson(int lessonId, int quizId)
         {
-            var lesson = await _context.Lessons
-                .Include(l => l.Quizzes) 
-                .FirstOrDefaultAsync(l => l.LessonId == lessonId);
+            var response = await _quizservice.LinkQuizToLesson(lessonId, quizId);
 
-            var quiz = await _context.Quizzes.FindAsync(quizId);
-
-            if (lesson == null || quiz == null)
+            if (response.Status == ServiceResponse.ServiceStatus.NotFound)
             {
-                return NotFound("Lesson or Quiz not found.");
+                return NotFound(new { error = "Lesson or Quiz not found." });
+            }
+            if (response.Status == ServiceResponse.ServiceStatus.AlreadyExists)
+            {
+                return Conflict(new { conflict = "Quiz is already linked to this lesson." });
+            }
+            if (response.Status == ServiceResponse.ServiceStatus.Error)
+            {
+                return StatusCode(500, new { error = "An unexpected error occurred while linking the quiz to a lesson." });
             }
 
-            if (lesson.Quizzes.Contains(quiz))
-            {
-                return BadRequest("Quiz is already linked to this Lesson.");
-            }
-
-            lesson.Quizzes.Add(quiz);
-            await _context.SaveChangesAsync();
-
-            return Ok($"Quiz {quizId} linked to Lesson {lessonId}.");
+            return Ok(new { message = $"Quiz with {quizId} linked to Lesson with {lessonId} successfully." });
         }
-
 
 
 
@@ -357,38 +283,37 @@ namespace QuizMatics.Controllers
         /// <param name="lessonId">The ID of the Lesson.</param>
         /// <param name="quizId">The ID of the Quiz.</param>
         /// <returns>
-        /// Returns a success message if the Quiz is unlinked from the Lesson.
-        /// Returns a 404 if the Lesson or Quiz is not found.
-        /// Returns a 404 if the Quiz is not linked to the Lesson.
+        /// 200 Ok:"Quiz with {quizId} unlinked to Lesson with {lessonId} successfully.": if the Quiz is unlinked to the Lesson.
+        /// or
+        /// 505 Interval Server Error: "An unexpected error occurred while unlinking the quiz to a lesson.": If there is an error unlinking quiz to a lesson
+        /// or
+        /// 404 Not Found: "Lesson or Quiz not found.":  if the Lesson or Quiz is not found.
+        /// or
+        /// 409 Conflict: "Quiz is not linked to this lesson." : If quiz is not linked with the lesson
         /// </returns>
         /// <example>
         /// api/Quizzes/UnlinkQuiz?linkId=1^&quizId=2 -> Quiz 2 unlinked from Lesson 1.
         /// </example>
-        [HttpDelete("UnlinkQuiz")]
+        [HttpPost("UnlinkQuiz")]
         public async Task<IActionResult> UnlinkQuizFromLesson(int lessonId, int quizId)
         {
-            var lesson = await _context.Lessons
-                .Include(l => l.Quizzes)  
-                .FirstOrDefaultAsync(l => l.LessonId == lessonId);
+            var response = await _quizservice.UnlinkQuizFromLesson(lessonId, quizId);
 
-            if (lesson == null)
+            if (response.Status == ServiceResponse.ServiceStatus.NotFound)
             {
-                return NotFound("Lesson not found.");
+                return NotFound(new { error = "Lesson or Quiz not found." });
+            }
+            if (response.Status == ServiceResponse.ServiceStatus.NotLinked)
+            {
+                return Conflict(new { conflict = "Quiz is not linked to this lesson." });
+            }
+            if (response.Status == ServiceResponse.ServiceStatus.Error)
+            {
+                return StatusCode(500, new { error = "An unexpected error occurred while unlinking the quiz to a lesson." });
             }
 
-            var quiz = lesson.Quizzes.FirstOrDefault(q => q.QuizId == quizId);
-            if (quiz == null)
-            {
-                return NotFound("Quiz is not linked to this Lesson.");
-            }
+            return Ok(new { message = $"Quiz with {quizId} unlinked to Lesson with {lessonId} successfully." });
 
-            
-            lesson.Quizzes.Remove(quiz);
-            await _context.SaveChangesAsync();  
-
-            return Ok($"Quiz {quizId} unlinked from Lesson {lessonId}.");
         }
-
-
     }
 }

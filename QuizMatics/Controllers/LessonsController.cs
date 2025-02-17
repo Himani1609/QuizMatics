@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Azure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuizMatics.Data;
 using QuizMatics.Data.Migrations;
+using QuizMatics.Interfaces;
 using QuizMatics.Models;
+using QuizMatics.Services;
 
 namespace QuizMatics.Controllers
 {
@@ -15,11 +18,11 @@ namespace QuizMatics.Controllers
     [ApiController]
     public class LessonsController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ILessonService _lessonservice;
 
-        public LessonsController(ApplicationDbContext context)
+        public LessonsController(ILessonService context)
         {
-            _context = context;
+            _lessonservice = context;
         }
 
         /// <summary>
@@ -27,6 +30,7 @@ namespace QuizMatics.Controllers
         /// </summary>
         /// <param name="LessonDto">It includes Id, Title, Date Created, Teacher Name who created the lesson, and Number of Quizzes in a Lesson</param>
         /// <returns>
+        /// HTTP RESPONSE
         /// 200 Ok
         /// List of lessons with it's Id, Title, Date Created, Teacher Name who created the lesson, and Number of Quizzes in a Lesson
         /// </returns>
@@ -36,28 +40,9 @@ namespace QuizMatics.Controllers
         [HttpGet(template: "List")]
         public async Task<ActionResult<IEnumerable<LessonDto>>> ListLessons()
         {
-            List<Lesson> Lessons = await _context.Lessons
-                .Include(l => l.Teacher)
-                .Include(l => l.Quizzes)
-                .ToListAsync();
+            IEnumerable<LessonDto> LessonDtos = await _lessonservice.ListLessons();
 
-            List<LessonDto> LessonDtos = new List<LessonDto>();
-
-            foreach (Lesson Lesson in Lessons)
-            {
-                LessonDtos.Add(new LessonDto()
-                {
-                    LessonId = Lesson.LessonId,
-                    Title = Lesson.Title,
-                    DateCreated = Lesson.DateCreated,
-                    Name = Lesson.Teacher.Name,
-                    TotalQuizzes = Lesson.Quizzes?.Count() ?? 0,
-                    QuizNames = Lesson.Quizzes != null ? Lesson.Quizzes.Select(q => q.Title).ToList() : new List<string>()
-
-                });
-
-            }
-            // return 200 OK with LessonDtos
+            // return 200 OK with TeacherDtos
             return Ok(LessonDtos);
         }
 
@@ -67,38 +52,28 @@ namespace QuizMatics.Controllers
         /// <param name="id">Lesson id</param>
         /// <param name="LessonDto">It includes Id, Title, Date Created, Teacher Name who created the lesson, and Number of Quizzes in a Lesson</param>
         /// <returns>
+        /// HTTP RESPONSE
         /// 200 Ok
         /// LessonDto : Lesson with it's given Id, Title, Date Created, Teacher Name who created the lesson, and Number of Quizzes in a Lesson
         /// or
-        /// 404 Not Found when there is no Lesson of that id
+        /// 404 Not Found: "No lesson found for that ID {id}":  when there is no Lesson of that id
         /// </returns>
         /// <example>
-        /// GET: api/Lessons/Find/{id} -> {LessonDto} represented as {LessonId:1, Title:"Algebra Basics", DateCreated:2025-01-01, Name: "Apurva",TotalQuizzes: 1}
+        /// GET: api/Lessons/Find/1 -> {LessonDto} represented as {LessonId:1, Title:"Algebra Basics", DateCreated:2025-01-01, Name: "Apurva",TotalQuizzes: 1}
         /// </example>
         [HttpGet(template: "Find/{id}")]
         public async Task<ActionResult<LessonDto>> FindLesson(int id)
         {
-            var lesson = await _context.Lessons
-                .Include(l => l.Teacher)
-                .Include(l => l.Quizzes)
-                .FirstOrDefaultAsync(l => l.LessonId == id); 
+            var lesson = await _lessonservice.FindLesson(id);
 
-            if ( lesson == null)
+            if (lesson == null)
             {
-                return NotFound();
+                return NotFound($"No lesson found for that ID {id}");
             }
-
-            LessonDto lessonDto = new LessonDto()
+            else
             {
-                LessonId = lesson.LessonId,
-                Title = lesson.Title,
-                DateCreated = lesson.DateCreated,
-                Name = lesson.Teacher.Name,
-                TotalQuizzes = lesson.Quizzes?.Count() ?? 0,
-                QuizNames = lesson.Quizzes != null ? lesson.Quizzes.Select(q => q.Title).ToList() : new List<string>()
-            };
-
-            return Ok(lessonDto);
+                return Ok(lesson);
+            }
         }
 
         /// <summary>
@@ -107,6 +82,7 @@ namespace QuizMatics.Controllers
         /// <param name="id">The ID of Lesson which we want to update</param>
         /// <param name="UpdateLessonDto">The required information to update the Lesson</param>
         /// <returns>
+        /// HTTP RESPONSE
         /// 400 Bad Request - If the ID in the route does not match the Lesson ID.
         /// or
         /// 404 Not Found - If the Lesson or Teacher does not exist.
@@ -121,43 +97,18 @@ namespace QuizMatics.Controllers
                 return BadRequest(new { message = "Lesson ID mismatch." });
             }
 
-            var lesson = await _context.Lessons.FindAsync(id);
-            if (lesson == null)
+            ServiceResponse response = await _lessonservice.UpdateLesson(id, updatelessonDto);
+
+            if (response.Status == ServiceResponse.ServiceStatus.NotFound)
             {
-                return NotFound(new { message = "Lesson not found." });
+                return NotFound(new { error = "Lesson not found." });
+            }
+            else if (response.Status == ServiceResponse.ServiceStatus.Error)
+            {
+                return StatusCode(500, new { error = "An unexpected error occurred while updating the lesson." });
             }
 
-            var teacher = await _context.Teachers.FindAsync(updatelessonDto.TeacherId);
-            if (teacher == null)
-            {
-                return NotFound(new { message = "Teacher not found." });
-            }
-
-            // Update only the necessary fields
-            lesson.Title = updatelessonDto.Title;
-            lesson.Description = updatelessonDto.Description;
-            lesson.DateCreated = updatelessonDto.DateCreated;
-            lesson.TeacherId = updatelessonDto.TeacherId;
-
-            _context.Entry(lesson).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!LessonExists(id))
-                {
-                    return NotFound(new { message = "Lesson not found after concurrency check." });
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return Ok(new { message = $"Lesson {id} updated successfully." });
+            return Ok(new { message = $"Lesson with ID {id} updated successfully." });
         }
 
 
@@ -170,45 +121,36 @@ namespace QuizMatics.Controllers
         /// </remarks>
         /// <param name="AddLessonDto">The required information to add the Lesson</param>
         /// <returns>
-        /// 201 Created - If the Lesson is successfully added.
+        /// HTTP RESPONSE
+        /// 201 Created: "Lesson added successfully with ID {response.CreatedId}": If the Lesson is successfully added.
         /// or
-        /// 404 Not Found - If the specified Teacher does not exist.
+        /// 404 Not Found: "Teacher not found. Cannot add lesson.": If the teacher for TeacherId added in request body is not found
+        /// or
+        /// 500 Internal Server Error: "An unexpected error occurred while adding the lesson." : If there is an error adding lesson.
         /// </returns>
         /// <example>
         /// api/Lessons/Add -> Add the Lesson 
         /// </example>
         [HttpPost(template:"Add")]
-        public async Task<ActionResult<Lesson>> AddLesson(AddLessonDto addlessonDto)
+        public async Task<ActionResult> AddLesson(AddLessonDto addlessonDto)
         {
-            var teacher = await _context.Teachers.FindAsync(addlessonDto.TeacherId);
-            if (teacher == null)
+            ServiceResponse response = await _lessonservice.AddLesson(addlessonDto);
+            
+            if (response.Status == ServiceResponse.ServiceStatus.NotFound)
             {
-                return NotFound(new { message = "Teacher not found." });
+                return NotFound(new { error = "Teacher not found. Cannot add lesson." }); 
             }
 
-            Lesson lesson = new Lesson()
+            if (response.Status == ServiceResponse.ServiceStatus.Error)
             {
-                Title = addlessonDto.Title,
-                Description = addlessonDto.Description,
-                DateCreated = addlessonDto.DateCreated,
-                TeacherId = addlessonDto.TeacherId
-            };
+                return StatusCode(500, new { error = "An unexpected error occurred while adding the lesson." });
+            }
 
-            _context.Lessons.Add(lesson);
-            await _context.SaveChangesAsync();
-
-            
-            LessonDto lessonDto = new LessonDto()
+            return CreatedAtAction("FindLesson", new { id = response.CreatedId }, new
             {
-                LessonId = lesson.LessonId,
-                Title = lesson.Title,
-                Description = lesson.Description,
-                DateCreated = lesson.DateCreated,
-                Name = lesson.Teacher.Name
-            };
-
-            return CreatedAtAction(nameof(FindLesson), new { id = lesson.LessonId },
-            new { message = $"Lesson {lesson.LessonId} added successfully.", lessonId = lesson.LessonId });
+                message = $"Lesson added successfully with ID {response.CreatedId}",
+                lessonId = response.CreatedId
+            });
         }
 
         /// <summary>
@@ -216,9 +158,12 @@ namespace QuizMatics.Controllers
         /// </summary>
         /// <param name="id">The id of the Lesson we want to delete</param>
         /// <returns>
-        /// 200 OK - If deletion is successful, returns a success message.
+        /// HTTP RESPONSE
+        /// 200 OK: "Lesson with ID {id} deleted successfully.": If deletion is successful, returns a success message.
         /// or
-        /// 404 Not Found - If the Lesson does not exist.
+        /// 404 Not Found: "Teacher not found.": If the teacher does not exist.
+        /// or
+        /// 500 Internal Server Error: "An unexpected error occurred while deleting the lesson.": If there is an error deleting the lesson.
         /// </returns>
         /// <example>
         /// api/Lessons/Delete/{id} -> Deletes the lesson associated with {id}
@@ -226,31 +171,30 @@ namespace QuizMatics.Controllers
         [HttpDelete(template:"Delete/{id}")]
         public async Task<IActionResult> DeleteLesson(int id)
         {
-            var lesson = await _context.Lessons.FindAsync(id);
-            if (lesson == null)
+            ServiceResponse response = await _lessonservice.DeleteLesson(id);
+
+            if (response.Status == ServiceResponse.ServiceStatus.NotFound)
             {
-                return NotFound(new { message = "Lesson not found." });
+                return NotFound(new { error = "Lesson not found." });
+            }
+            else if (response.Status == ServiceResponse.ServiceStatus.Error)
+            {
+                return StatusCode(500, new { error = "An unexpected error occurred while deleting the teacher." });
             }
 
-            _context.Lessons.Remove(lesson);
-            await _context.SaveChangesAsync();
-
-            return Ok(new { message = $"Lesson {id} deleted successfully." });
+            return Ok(new { message = $"Lesson with ID {id} deleted successfully." });
         }
 
-        private bool LessonExists(int id)
-        {
-            return _context.Lessons.Any(e => e.LessonId == id);
-        }
 
         /// <summary>
         /// Returns a list of quizzes associated with a specific Lesson, including quiz details like title, grade, and difficulty.
         /// </summary>
         /// <param name="id">The ID of the lesson to retrieve quizzes for.</param>
         /// <returns>
-        /// 200 Ok - A list of quizzes (with their title, grade, and difficulty level) associated with the lesson.
+        /// HTTP RESPONSE
+        /// ListQuizDto - A list of quizzes (with their title, grade, and difficulty level) associated with the lesson.
         /// or
-        /// 404 Not Found - If the lesson does not exist or if no quizzes are found for the lesson.
+        /// 404 Not Found: "No quizzes found for Lesson ID {id}.": If the lesson does not exist for that {id} or if no quizzes are found for the lesson.
         /// </returns>
         /// <example>
         /// api/Lessons/ListOfQuizzes/9 ->
@@ -269,33 +213,32 @@ namespace QuizMatics.Controllers
         /// }
         ///]
         /// </example>
+
         [HttpGet("ListOfQuizzes/{id}")]
         public async Task<ActionResult<IEnumerable<ListQuizDto>>> ListOfQuizzes(int id)
         {
-            var lesson = await _context.Lessons
-                .Include(l => l.Quizzes)
-                .FirstOrDefaultAsync(l => l.LessonId == id);
+            var response = await _lessonservice.ListOfQuizzes(id);
 
-            if (lesson == null)
-            {
-                return NotFound($"Lesson with ID {id} not found.");
-            }
-
-            if (lesson.Quizzes == null || !lesson.Quizzes.Any())
+            if (response == null)
             {
                 return NotFound($"No quizzes found for Lesson ID {id}.");
             }
 
-            var quizDtos = lesson.Quizzes.Select(q => new ListQuizDto
-            {
-                QuizId = q.QuizId,
-                Title = q.Title,
-                Grade = q.Grade,
-                DifficultyLevel = q.DifficultyLevel
-            }).ToList();
-
-            return Ok(quizDtos);
+            return Ok(response);
         }
 
+        // GET: api/Lesson/ListLessonsByTeacher/{id}
+        [HttpGet("ListLessonsByTeacher/{id}")]
+        public async Task<IActionResult> ListLessonsByTeacher(int id)
+        {
+            var lessons = await _lessonservice.ListLessonsByTeacherId(id);
+
+            if (lessons == null || !lessons.Any())
+            {
+                return NotFound(new { message = "No lessons found for this teacher." });
+            }
+
+            return Ok(lessons);
+        }
     }
 }

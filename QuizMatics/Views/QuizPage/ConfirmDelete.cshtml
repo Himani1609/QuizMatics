@@ -1,0 +1,17 @@
+﻿@model QuizMatics.Models.QuizDto
+
+@{
+    ViewData["Title"] = "Confirm Deletion";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <h3>Are you sure you want to delete the quiz titled "<strong>@Model.Title</strong>"?</h3>
+    <p>Description: @Model.Description</p>
+
+    <form method="post" asp-action="Delete" asp-route-id="@Model.QuizId">
+        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+        <a asp-action="List" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
