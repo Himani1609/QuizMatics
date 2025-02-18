@@ -1,6 +1,8 @@
 ﻿@model AddLessonDto
 
-<h2>Add Lesson</h2>
+<div class="text-center mb-4">
+    <h2>Add Lesson</h2>
+</div>
 
 <form asp-action="Add" method="post">
     <div class="form-group">
@@ -33,11 +35,68 @@
         <span asp-validation-for="TeacherId" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Add Lesson</button>
+    <div class="form-group text-center">
+        <button type="submit" class="btn btn-primary btn-lg">Add Lesson</button>
     </div>
 </form>
 
-<div class="form-group">
-    <a asp-action="List" class="btn btn-secondary">Back to List</a>
+<div class="form-group text-center mt-4">
+    <a asp-action="List" class="btn btn-secondary btn-lg">Back to List</a>
 </div>
+
+<style>
+    .text-center h2 {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 30px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        font-size: 1rem;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #ced4da;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn {
+        transition: all 0.3s ease;
+        padding: 12px 24px;
+        font-size: 1.2rem;
+    }
+
+    .btn:hover {
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        transform: translateY(-3px);
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+        border-color: #545b62;
+    }
+
+    .text-danger {
+        font-size: 0.9rem;
+        color: #dc3545;
+    }
+</style>

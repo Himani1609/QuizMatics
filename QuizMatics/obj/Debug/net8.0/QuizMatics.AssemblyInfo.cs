@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("QuizMatics")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+80b5d2862c54c1ab8df754b5507a62de5c823a4a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1aa0391c40a893dc0d9bf851b6b4698bb6b9b52a")]
 [assembly: System.Reflection.AssemblyProductAttribute("QuizMatics")]
 [assembly: System.Reflection.AssemblyTitleAttribute("QuizMatics")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

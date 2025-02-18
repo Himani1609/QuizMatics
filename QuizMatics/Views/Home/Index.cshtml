@@ -2,7 +2,100 @@
     ViewData["Title"] = "Home - QuizMatics";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to QuizMatics!</h1>
-    <p>The ultimate platform for managing quizzes, lessons, and academic content.</p>
+<div class="text-center hero-section">
+    <h1 class="display-4">Welcome to <span class="logo-name">QuizMatics!</span></h1>
+    <p class="lead">The ultimate platform for managing quizzes, lessons, and academic content.</p>
+    <div class="btn-group my-4" role="group">
+        <a href="/ListTeachers" class="btn btn-custom btn-lg">Manage Teachers</a>
+        <a href="/ListLessons" class="btn btn-custom btn-lg">Manage Lessons</a>
+        <a href="/ListQuizzes" class="btn btn-custom btn-lg">Manage Quizzes</a>
+    </div>
 </div>
+
+<section class="features my-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h3>Manage Teachers</h3>
+                <p>Efficiently manage teacher information, assign them to lessons, and track their contributions to the academic content.</p>
+            </div>
+            <div class="col-md-4">
+                <h3>Manage Lessons</h3>
+                <p>Create, organize, and update lessons, while seamlessly linking them to quizzes for an interactive learning experience.</p>
+            </div>
+            <div class="col-md-4">
+                <h3>Manage Quizzes</h3>
+                <p>Design, assign, and customize quizzes to assess student progress, reinforce key concepts, and measure learning outcomes.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta bg-dark text-white text-center py-5">
+    <h2>Ready to get started?</h2>
+    <p>Click any of the buttons above to manage teachers, lessons, or quizzes.</p>
+</section>
+
+<style>
+    .hero-section {
+        background-color: #f8f9fa;
+        padding: 60px 0;
+        margin-bottom: 40px;
+    }
+
+    .logo-name{
+        color: #11787f !important;
+    }
+
+    .features h3 {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .cta {
+        background-color: #343a40;
+        color: white;
+    }
+
+        .cta a {
+            margin-top: 20px;
+        }
+
+   
+    .btn-custom {
+        margin-bottom: 15px;
+        border-radius: 8px;
+        padding: 12px 30px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-custom:hover {
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .btn-custom:first-child {
+            background-color: #ffc300;
+            color: #fff;
+            border: none;
+        }
+
+        .btn-custom:nth-child(2) {
+            background-color: #ee8822;
+            color: #fff;
+            border: none;
+        }
+
+        .btn-custom:last-child {
+            background-color: #9c4000;
+            color: #fff;
+            border: none;
+        }
+
+    .btn-group {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+    }
+
+</style>

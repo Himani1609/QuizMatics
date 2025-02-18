@@ -4,26 +4,23 @@
     ViewData["Title"] = "Lesson Details";
 }
 
-<h1>@ViewData["Title"]</h1>
-
-<div>
-    <strong>Lesson ID:</strong> @Model.Lesson.LessonId
-</div>
-<div>
-    <strong>Title:</strong> @Model.Lesson.Title
-</div>
-<div>
-    <strong>Description:</strong> @Model.Lesson.Description
-</div>
-<div>
-    <strong>Date Created:</strong> @Model.Lesson.DateCreated
-</div>
-<div>
-    <strong>Teacher:</strong> @Model.Lesson.Name
+<div class="text-center">
+    <h1>@ViewData["Title"]</h1>
 </div>
 
-<h2>Quizzes Associated with this Lesson</h2>
+<div class="lesson-info">
+    <p><strong>Lesson ID:</strong> @Model.Lesson.LessonId</p>
+    <p><strong>Title:</strong> @Model.Lesson.Title</p>
+    <p><strong>Description:</strong> @Model.Lesson.Description</p>
+    <p><strong>Date Created:</strong> @Model.Lesson.DateCreated.ToShortDateString()</p>
+    <p><strong>Teacher:</strong> @Model.Lesson.Name</p>
+</div>
+
+<hr />
+
+<h3 class="text-center my-4">Quizzes Associated with this Lesson</h3>
 @if (Model.ListQuizzes.Any())
+
 {
     <table class="table">
         <thead>
@@ -37,6 +34,7 @@
         </thead>
         <tbody>
             @foreach (var quiz in Model.ListQuizzes)
+
             {
                 <tr>
                     <td>@quiz.QuizId</td>
@@ -44,12 +42,11 @@
                     <td>@quiz.Grade</td>
                     <td>@quiz.DifficultyLevel</td>
                     <td>
-                        <a asp-controller="QuizPage" asp-action="Details" asp-route-id="@quiz.QuizId" class="btn btn-info btn-sm"> View Details</a>
-                        <!-- Unlink Button -->
+                        <a asp-controller="QuizPage" asp-action="Details" asp-route-id="@quiz.QuizId" class="btn btn-info btn-sm">View Details</a>
                         <form asp-action="UnlinkQuiz" method="post" style="display:inline;">
                             <input type="hidden" name="lessonId" value="@Model.Lesson.LessonId" />
                             <input type="hidden" name="quizId" value="@quiz.QuizId" />
-                            <button type="submit" class="btn btn-danger btn-sm"> Remove</button>
+                            <button type="submit" class="btn btn-danger btn-sm">Remove</button>
                         </form>
                     </td>
                 </tr>
@@ -57,15 +54,16 @@
         </tbody>
     </table>
 }
+
 else
+
 {
-    <p>No quizzes are associated with this lesson.</p>
+    <p>No quizzes found for this lesson.</p>
 }
 
 <hr />
 
-<!-- Link a Quiz -->
-<h2>Link a Quiz</h2>
+<h3 class="text-center my-4">Link a Quiz</h3>
 <form asp-action="LinkQuiz" method="post">
     <input type="hidden" name="lessonId" value="@Model.Lesson.LessonId" />
     <div class="form-group">
@@ -79,6 +77,76 @@ else
 
 <hr />
 
-<a asp-action="List" class="btn btn-primary">Back to List</a>
-<a asp-action="Edit" asp-route-id="@Model.Lesson.LessonId" class="btn btn-secondary"> Edit</a>
-<a asp-action="Delete" asp-route-id="@Model.Lesson.LessonId" class="btn btn-danger"> Delete</a>
+<div class="btn-group text-content-center my-3">
+    <a asp-action="List" class="btn btn-primary btn-sm">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Lesson.LessonId" class="btn btn-warning btn-sm mx-2">Edit</a>
+    <a asp-action="Delete" asp-route-id="@Model.Lesson.LessonId" class="btn btn-danger btn-sm">Delete</a>
+</div>
+
+<style>
+    h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 30px;
+    }
+
+    .lesson-info p {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
+    .btn-group {
+        display: inline-block; 
+        margin-top: 15px;
+    }
+
+    .btn-group a {
+        margin-bottom: 15px;
+    }
+
+    .btn-sm {
+        padding: 8px 20px;
+        font-size: 0.9rem;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+    }
+
+    .btn-warning {
+        background-color: #ffc107;
+        border-color: #ffc107;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+    .btn-info {
+        background-color: #17a2b8;
+        border: none;
+    }
+
+    .table {
+        margin-top: 30px;
+    }
+
+        .table th, .table td {
+            text-align: center;
+        }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+</style>

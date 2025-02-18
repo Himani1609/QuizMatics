@@ -4,33 +4,22 @@
     ViewData["Title"] = "Teacher Details";
 }
 
-<h1>@ViewData["Title"]</h1>
+<div class="text-center">
+    <h1>@ViewData["Title"]</h1>
+</div>
 
-<!-- Teacher Info -->
-<div>
-    <strong>Id:</strong> @Model.Teacher.TeacherId
-</div>
-<div>
-    <strong>Name:</strong> @Model.Teacher.Name
-</div>
-<div>
-    <strong>Total Lessons:</strong> @Model.Teacher.TotalLessons
-</div>
-<div>
-    <strong>Total Quizzes:</strong> @Model.Teacher.TotalQuizzes
+<div class="teacher-info">
+    <p><strong>Id:</strong> @Model.Teacher.TeacherId</p>
+    <p><strong>Name:</strong> @Model.Teacher.Name</p>
+    <p><strong>Total Lessons:</strong> @Model.Teacher.TotalLessons</p>
+    <p><strong>Total Quizzes:</strong> @Model.Teacher.TotalQuizzes</p>
 </div>
 
 <hr />
 
-<a asp-action="List" class="btn btn-primary"> Back to List</a>
-<a asp-action="Edit" asp-route-id="@Model.Teacher.TeacherId" class="btn btn-secondary">Edit</a>
-<a asp-action="Delete" asp-route-id="@Model.Teacher.TeacherId" class="btn btn-danger">Delete</a>
-
-<hr />
-
-<!-- Lessons List -->
-<h3>Lessons</h3>
+<h3 class="text-center my-4">Lessons</h3>
 @if (Model.Lessons != null && Model.Lessons.Any())
+
 {
     <table class="table">
         <thead>
@@ -43,20 +32,91 @@
         </thead>
         <tbody>
             @foreach (var lesson in Model.Lessons)
+
             {
                 <tr>
                     <td>@lesson.Title</td>
                     <td>@lesson.Description</td>
                     <td>@lesson.DateCreated.ToShortDateString()</td>
                     <td>
-                        <a asp-controller="LessonPage" asp-action="Details" asp-route-id="@lesson.LessonId" class="btn btn-info btn-sm"> View Details</a>
+                        <a asp-controller="LessonPage" asp-action="Details" asp-route-id="@lesson.LessonId" class="btn btn-info btn-sm">View Details</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 }
+
 else
+
 {
     <p>No lessons found for this teacher.</p>
 }
+
+<hr />
+
+<div class="btn-group text-center my-3">
+    <a asp-action="List" class="btn btn-primary btn-sm">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Teacher.TeacherId" class="btn btn-warning btn-sm mx-2">Edit</a>
+    <a asp-action="Delete" asp-route-id="@Model.Teacher.TeacherId" class="btn btn-danger btn-sm">Delete</a>
+</div>
+
+
+
+<style>
+    h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 30px;
+    }
+
+    .teacher-info p {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
+    .btn-group {
+        display: inline-block; 
+        margin-top: 15px;
+    }
+
+
+    .btn-group a {
+        margin-bottom: 15px;
+    }
+
+    .btn-sm {
+        padding: 8px 20px;
+        font-size: 0.9rem;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+    }
+
+
+    .btn-warning {
+        background-color: #ffc107;
+        border-color: #ffc107;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+    .btn-info {
+        background-color: #17a2b8;
+        border: none;
+    }
+
+    .table {
+        margin-top: 30px;
+    }
+
+        .table th, .table td {
+            text-align: center;
+        }
+</style>

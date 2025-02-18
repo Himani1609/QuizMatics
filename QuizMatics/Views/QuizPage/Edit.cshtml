@@ -1,56 +1,142 @@
 ﻿@model UpdateQuizDto
 
-@{
-    ViewData["Title"] = "Edit Quiz";
-}
+<div class="container">
+    <div class="form-container">
+        <h2 class="text-center">Edit Quiz</h2>
 
-<h2>@ViewData["Title"]</h2>
+        <form asp-action="Edit" asp-route-id="@Model.QuizId" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="QuizId" />
 
-<form asp-action="Edit" asp-route-id="@Model.QuizId" method="post">
-    @Html.AntiForgeryToken()
-    <input type="hidden" asp-for="QuizId" />
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
 
-    <div class="form-group">
-        <label asp-for="Title" class="control-label"></label>
-        <input asp-for="Title" class="form-control" />
-        <span asp-validation-for="Title" class="text-danger"></span>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col">
+                    <label asp-for="MaxMinsAlotted" class="control-label"></label>
+                    <input asp-for="MaxMinsAlotted" class="form-control" type="number" />
+                    <span asp-validation-for="MaxMinsAlotted" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col">
+                    <label asp-for="Grade" class="control-label"></label>
+                    <input asp-for="Grade" class="form-control" />
+                    <span asp-validation-for="Grade" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DifficultyLevel" class="control-label"></label>
+                <select asp-for="DifficultyLevel" class="form-control">
+                    <option value="">Select Difficulty Level</option>
+                    <option value="Easy">Easy</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Hard">Hard</option>
+                </select>
+                <span asp-validation-for="DifficultyLevel" class="text-danger"></span>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <a asp-action="Details" asp-route-id="@Model.QuizId" class="btn btn-secondary">Back to Details</a>
+            </div>
+        </form>
     </div>
+</div>
 
-    <div class="form-group">
-        <label asp-for="Description" class="control-label"></label>
-        <textarea asp-for="Description" class="form-control"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
+<style>
+    /* Center the form and set a max width */
+    .form-container {
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 25px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
 
-    <div class="form-group">
-        <label asp-for="MaxMinsAlotted" class="control-label"></label>
-        <input asp-for="MaxMinsAlotted" class="form-control" />
-        <span asp-validation-for="MaxMinsAlotted" class="text-danger"></span>
-    </div>
+    h2 {
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
 
-    <div class="form-group">
-        <label asp-for="Grade" class="control-label"></label>
-        <input asp-for="Grade" class="form-control" />
-        <span asp-validation-for="Grade" class="text-danger"></span>
-    </div>
+    .form-group {
+        margin-bottom: 15px;
+    }
 
-    <!-- Difficulty Level Dropdown -->
-    <div class="form-group">
-        <label asp-for="DifficultyLevel" class="control-label"></label>
-        <select asp-for="DifficultyLevel" class="form-control">
-            <option value="">Select Difficulty Level</option>
-            <option value="Easy">Easy</option>
-            <option value="Medium">Medium</option>
-            <option value="Hard">Hard</option>
-        </select>
-        <span asp-validation-for="DifficultyLevel" class="text-danger"></span>
-    </div>
+        .form-group label {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
 
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Save Changes</button>
-    </div>
+    .form-control {
+        width: 100%;
+        padding: 8px;
+        font-size: 0.95rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
 
-    <div class="form-group">
-        <a asp-action="Details" asp-route-id="@Model.QuizId" class="btn btn-secondary">Back to Details</a>
-    </div>
-</form>
+    textarea.form-control {
+        min-height: 120px;
+        resize: vertical;
+    }
+
+    /* Two columns for Max Minutes and Grade */
+    .form-row {
+        display: flex;
+        gap: 15px;
+    }
+
+        .form-row .col {
+            flex: 1;
+        }
+
+    /* Button styling */
+    .button-group {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 1rem;
+        border-radius: 5px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        color: white;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border: none;
+        color: white;
+    }
+
+        .btn-secondary:hover {
+            background-color: #545b62;
+        }
+
+    .text-danger {
+        font-size: 0.85rem;
+    }
+</style>

@@ -1,27 +1,102 @@
 ﻿@model UpdateTeacherDto
 
-<h2>Edit Teacher</h2>
+<div class="container">
+    <div class="form-container">
+        <h2 class="text-center">Edit Teacher</h2>
 
-<form asp-action="Edit" asp-route-id="@Model.TeacherId"  method="post">
-    @Html.AntiForgeryToken()
-    <input type="hidden" asp-for="TeacherId" />
-    <div class="form-group">
-        <label asp-for="Name" class="control-label"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
+        <form asp-action="Edit" asp-route-id="@Model.TeacherId" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="TeacherId" />
 
-    <div class="form-group">
-        <label asp-for="Email" class="control-label"></label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
 
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Save Changes</button>
-    </div>
-    <div class="form-group">
-        <a asp-action="Details" asp-route-id="@Model.TeacherId" class="btn btn-secondary">Back to Details</a>
-    </div>
-</form>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
 
+            <div class="button-group">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <a asp-action="Details" asp-route-id="@Model.TeacherId" class="btn btn-secondary">Back to Details</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    /* Center the form and set a max width */
+    .form-container {
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 25px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        font-weight: 600;
+        font-size: 0.95rem;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 8px;
+        font-size: 0.95rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    /* Button styling */
+    .button-group {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 1rem;
+        border-radius: 5px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border: none;
+        color: white;
+    }
+
+    .btn-secondary:hover {
+        background-color: #545b62;
+    }
+
+    .text-danger {
+        font-size: 0.85rem;
+    }
+</style>

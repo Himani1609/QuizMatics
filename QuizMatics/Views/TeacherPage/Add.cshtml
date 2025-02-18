@@ -1,25 +1,79 @@
 ﻿@model AddTeacherDto
 
-<h2>Add Teacher</h2>
+<h2 class="text-center my-4">Add Teacher</h2>
 
-<form asp-action="Add" method="post">
-    <div class="form-group">
-        <label asp-for="Name" class="control-label"></label>
-        <input asp-for="Name" class="form-control" />
+<form asp-action="Add" method="post" class="container p-4 border rounded shadow-sm bg-light">
+    <div class="form-group mb-4">
+        <label asp-for="Name" class="control-label font-weight-bold"></label>
+        <input asp-for="Name" class="form-control form-control-lg" placeholder="Enter teacher's name" />
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
-        <label asp-for="Email" class="control-label"></label>
-        <input asp-for="Email" class="form-control" />
+    <div class="form-group mb-4">
+        <label asp-for="Email" class="control-label font-weight-bold"></label>
+        <input asp-for="Email" class="form-control form-control-lg" placeholder="Enter teacher's email" />
         <span asp-validation-for="Email" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Add Teacher</button>
+    <div class="form-group text-center mb-4">
+        <button type="submit" class="btn btn-primary btn-lg px-5 py-2">Add Teacher</button>
     </div>
 </form>
 
-<div class="form-group">
-    <a asp-action="List" class="btn btn-secondary">Back to List</a>
+<div class="text-center mt-4">
+    <a asp-action="List" class="btn btn-secondary btn-lg px-5 py-2">Back to List</a>
 </div>
+
+
+<style>
+    .container {
+        max-width: 600px;
+    }
+
+    form {
+        background-color: #f8f9fa;
+    }
+
+    h2 {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #343a40;
+    }
+
+    .form-group label {
+        font-size: 1.1rem;
+        color: #495057;
+    }
+
+    .form-control {
+        font-size: 1.1rem;
+        padding: 10px;
+    }
+
+    .btn {
+        font-size: 1.1rem;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
+    .form-group span {
+        font-size: 0.9rem;
+        color: #dc3545;
+    }
+
+    .form-group.mb-4 {
+        margin-bottom: 30px;
+    }
+
+    .btn-lg {
+        padding: 12px 20px;
+    }
+</style>

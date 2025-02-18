@@ -7,52 +7,16 @@
       "RelativeMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|solutionrelative:quizmatics\\views\\lessonpage\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|d:\\web_development\\quizmatics\\quizmatics\\views\\teacherpage\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|solutionrelative:quizmatics\\views\\teacherpage\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|d:\\web_development\\quizmatics\\quizmatics\\controllers\\lessonpagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|solutionrelative:quizmatics\\controllers\\lessonpagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|d:\\web_development\\quizmatics\\quizmatics\\views\\lessonpage\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|solutionrelative:quizmatics\\views\\lessonpage\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|d:\\web_development\\quizmatics\\quizmatics\\views\\quizpage\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|solutionrelative:quizmatics\\views\\quizpage\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|d:\\web_development\\quizmatics\\quizmatics\\models\\viewmodels\\lessondetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|solutionrelative:quizmatics\\models\\viewmodels\\lessondetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|d:\\web_development\\quizmatics\\quizmatics\\controllers\\quizpagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|solutionrelative:quizmatics\\controllers\\quizpagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|d:\\web_development\\quizmatics\\quizmatics\\views\\quizpage\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|solutionrelative:quizmatics\\views\\quizpage\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|d:\\web_development\\quizmatics\\quizmatics\\models\\quiz.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|solutionrelative:quizmatics\\models\\quiz.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|d:\\web_development\\quizmatics\\quizmatics\\models\\viewmodels\\quizdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|solutionrelative:quizmatics\\models\\viewmodels\\quizdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|d:\\web_development\\quizmatics\\quizmatics\\views\\quizpage\\confirmdelete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|solutionrelative:quizmatics\\views\\quizpage\\confirmdelete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|d:\\web_development\\quizmatics\\quizmatics\\views\\teacherpage\\list.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|solutionrelative:quizmatics\\views\\teacherpage\\list.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|d:\\web_development\\quizmatics\\quizmatics\\views\\quizpage\\list.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|solutionrelative:quizmatics\\views\\quizpage\\list.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|d:\\web_development\\quizmatics\\quizmatics\\views\\quizpage\\add.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|solutionrelative:quizmatics\\views\\quizpage\\add.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|d:\\web_development\\quizmatics\\quizmatics\\views\\lessonpage\\list.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|solutionrelative:quizmatics\\views\\lessonpage\\list.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -62,169 +26,58 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Details.cshtml",
-              "DocumentMoniker": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Views\\TeacherPage\\Details.cshtml",
-              "RelativeDocumentMoniker": "QuizMatics\\Views\\TeacherPage\\Details.cshtml",
-              "ToolTip": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Views\\TeacherPage\\Details.cshtml*",
-              "RelativeToolTip": "QuizMatics\\Views\\TeacherPage\\Details.cshtml*",
-              "ViewState": "AgIAADYAAAAAAAAAAAAAACgAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-17T15:31:15.686Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Details.cshtml",
               "DocumentMoniker": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Views\\LessonPage\\Details.cshtml",
               "RelativeDocumentMoniker": "QuizMatics\\Views\\LessonPage\\Details.cshtml",
-              "ToolTip": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Views\\LessonPage\\Details.cshtml*",
-              "RelativeToolTip": "QuizMatics\\Views\\LessonPage\\Details.cshtml*",
-              "ViewState": "AgIAADUAAAAAAAAAAAAAADwAAAABAAAAAAAAAA==",
+              "ToolTip": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Views\\LessonPage\\Details.cshtml",
+              "RelativeToolTip": "QuizMatics\\Views\\LessonPage\\Details.cshtml",
+              "ViewState": "AgIAACEAAAAAAAAAAAAAAEEAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-17T15:27:58.345Z",
+              "WhenOpened": "2025-02-18T07:26:02.294Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "LessonDetails.cs",
-              "DocumentMoniker": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Models\\ViewModels\\LessonDetails.cs",
-              "RelativeDocumentMoniker": "QuizMatics\\Models\\ViewModels\\LessonDetails.cs",
-              "ToolTip": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Models\\ViewModels\\LessonDetails.cs",
-              "RelativeToolTip": "QuizMatics\\Models\\ViewModels\\LessonDetails.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAABPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-17T15:23:24.096Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Edit.cshtml",
-              "DocumentMoniker": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Views\\LessonPage\\Edit.cshtml",
-              "RelativeDocumentMoniker": "QuizMatics\\Views\\LessonPage\\Edit.cshtml",
-              "ToolTip": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Views\\LessonPage\\Edit.cshtml",
-              "RelativeToolTip": "QuizMatics\\Views\\LessonPage\\Edit.cshtml",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAABcAAABKAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "List.cshtml",
+              "DocumentMoniker": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Views\\TeacherPage\\List.cshtml",
+              "RelativeDocumentMoniker": "QuizMatics\\Views\\TeacherPage\\List.cshtml",
+              "ToolTip": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Views\\TeacherPage\\List.cshtml",
+              "RelativeToolTip": "QuizMatics\\Views\\TeacherPage\\List.cshtml",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAABYAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-17T04:24:02.829Z",
+              "WhenOpened": "2025-02-18T07:25:36.222Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "LessonPageController.cs",
-              "DocumentMoniker": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Controllers\\LessonPageController.cs",
-              "RelativeDocumentMoniker": "QuizMatics\\Controllers\\LessonPageController.cs",
-              "ToolTip": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Controllers\\LessonPageController.cs",
-              "RelativeToolTip": "QuizMatics\\Controllers\\LessonPageController.cs",
-              "ViewState": "AgIAANgAAAAAAAAAAAA+wNwAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-17T04:20:17.526Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Quiz.cs",
-              "DocumentMoniker": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Models\\Quiz.cs",
-              "RelativeDocumentMoniker": "QuizMatics\\Models\\Quiz.cs",
-              "ToolTip": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Models\\Quiz.cs",
-              "RelativeToolTip": "QuizMatics\\Models\\Quiz.cs",
-              "ViewState": "AgIAAFEAAAAAAAAAAAA7wAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-17T04:00:29.799Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Details.cshtml",
-              "DocumentMoniker": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Views\\QuizPage\\Details.cshtml",
-              "RelativeDocumentMoniker": "QuizMatics\\Views\\QuizPage\\Details.cshtml",
-              "ToolTip": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Views\\QuizPage\\Details.cshtml",
-              "RelativeToolTip": "QuizMatics\\Views\\QuizPage\\Details.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-17T03:51:17.963Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Edit.cshtml",
-              "DocumentMoniker": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Views\\QuizPage\\Edit.cshtml",
-              "RelativeDocumentMoniker": "QuizMatics\\Views\\QuizPage\\Edit.cshtml",
-              "ToolTip": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Views\\QuizPage\\Edit.cshtml",
-              "RelativeToolTip": "QuizMatics\\Views\\QuizPage\\Edit.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-17T03:25:00.386Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Add.cshtml",
-              "DocumentMoniker": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Views\\QuizPage\\Add.cshtml",
-              "RelativeDocumentMoniker": "QuizMatics\\Views\\QuizPage\\Add.cshtml",
-              "ToolTip": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Views\\QuizPage\\Add.cshtml",
-              "RelativeToolTip": "QuizMatics\\Views\\QuizPage\\Add.cshtml",
-              "ViewState": "AgIAAB8AAAAAAAAAAADwvzwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-17T03:22:28.377Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
               "Title": "List.cshtml",
               "DocumentMoniker": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Views\\QuizPage\\List.cshtml",
               "RelativeDocumentMoniker": "QuizMatics\\Views\\QuizPage\\List.cshtml",
               "ToolTip": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Views\\QuizPage\\List.cshtml",
               "RelativeToolTip": "QuizMatics\\Views\\QuizPage\\List.cshtml",
-              "ViewState": "AgIAABgAAAAAAAAAAADwvyAAAAApAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-17T03:18:40.045Z"
+              "WhenOpened": "2025-02-18T07:25:27.527Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "ConfirmDelete.cshtml",
-              "DocumentMoniker": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Views\\QuizPage\\ConfirmDelete.cshtml",
-              "RelativeDocumentMoniker": "QuizMatics\\Views\\QuizPage\\ConfirmDelete.cshtml",
-              "ToolTip": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Views\\QuizPage\\ConfirmDelete.cshtml",
-              "RelativeToolTip": "QuizMatics\\Views\\QuizPage\\ConfirmDelete.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "List.cshtml",
+              "DocumentMoniker": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Views\\LessonPage\\List.cshtml",
+              "RelativeDocumentMoniker": "QuizMatics\\Views\\LessonPage\\List.cshtml",
+              "ToolTip": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Views\\LessonPage\\List.cshtml",
+              "RelativeToolTip": "QuizMatics\\Views\\LessonPage\\List.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-17T03:18:33.819Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "QuizDetails.cs",
-              "DocumentMoniker": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Models\\ViewModels\\QuizDetails.cs",
-              "RelativeDocumentMoniker": "QuizMatics\\Models\\ViewModels\\QuizDetails.cs",
-              "ToolTip": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Models\\ViewModels\\QuizDetails.cs",
-              "RelativeToolTip": "QuizMatics\\Models\\ViewModels\\QuizDetails.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAA4AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-17T03:08:52.432Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "QuizPageController.cs",
-              "DocumentMoniker": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Controllers\\QuizPageController.cs",
-              "RelativeDocumentMoniker": "QuizMatics\\Controllers\\QuizPageController.cs",
-              "ToolTip": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Controllers\\QuizPageController.cs",
-              "RelativeToolTip": "QuizMatics\\Controllers\\QuizPageController.cs",
-              "ViewState": "AgIAAAEAAAAAAAAAAAAcwBYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-17T03:07:48.338Z",
+              "WhenOpened": "2025-02-18T07:24:56.589Z",
               "EditorCaption": ""
             }
           ]

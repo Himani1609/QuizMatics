@@ -7,6 +7,38 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/QuizMatics.styles.css" asp-append-version="true" />
+    <style>
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 2rem;
+            color: #11787f !important;
+        }
+
+        .navbar-nav .nav-link {
+            font-weight: normal;
+            font-size: 1rem;
+        }
+
+            .navbar-nav .nav-link:hover {
+                color: #ee8822 !important;
+            }
+
+        footer {
+            background-color: #f8f9fa; 
+            padding: 10px 0;
+            text-align: center;
+        }
+
+            footer a {
+                color: #ee8822;
+                text-decoration: none;
+            }
+
+                footer a:hover {
+                    text-decoration: underline;
+                }
+    </style>
 </head>
 <body>
     <header>
@@ -26,7 +58,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/swagger" target="_blank">SwaggerUI</a> 
+                            <a class="nav-link" href="/swagger" target="_blank">API</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="TeacherPage" asp-action="List">Teachers</a>
@@ -54,6 +86,7 @@
             &copy; 2025 - QuizMatics - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

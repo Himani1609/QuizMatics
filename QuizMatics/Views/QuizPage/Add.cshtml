@@ -1,8 +1,11 @@
 ﻿@model AddQuizDto
 
-<h2>Add Quiz</h2>
+<div class="text-center">
+    <h2>Add Quiz</h2>
+</div>
 
 <form asp-action="Add" method="post">
+
     <div class="form-group">
         <label asp-for="Title" class="control-label"></label>
         <input asp-for="Title" class="form-control" />
@@ -15,12 +18,14 @@
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
 
+  
     <div class="form-group">
         <label asp-for="MaxMinsAlotted" class="control-label"></label>
         <input asp-for="MaxMinsAlotted" class="form-control" type="number" />
         <span asp-validation-for="MaxMinsAlotted" class="text-danger"></span>
     </div>
 
+    
     <div class="form-group">
         <label asp-for="Grade" class="control-label"></label>
         <input asp-for="Grade" class="form-control" type="text" />
@@ -38,6 +43,7 @@
         <span asp-validation-for="DifficultyLevel" class="text-danger"></span>
     </div>
 
+    
     <div class="form-group">
         <label asp-for="LessonId" class="control-label"></label>
         <select asp-for="LessonId" class="form-control">
@@ -50,11 +56,54 @@
         <span asp-validation-for="LessonId" class="text-danger"></span>
     </div>
 
+   
     <div class="form-group">
-        <button type="submit" class="btn btn-primary">Add Quiz</button>
+        <button type="submit" class="btn btn-primary btn-lg">Add Quiz</button>
     </div>
 </form>
 
 <div class="form-group">
-    <a asp-action="List" class="btn btn-secondary">Back to List</a>
+    <a asp-action="List" class="btn btn-secondary btn-lg">Back to List</a>
 </div>
+
+<style>
+    h2 {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 30px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        padding: 10px;
+        font-size: 1rem;
+    }
+
+    .btn-lg {
+        padding: 12px 30px;
+        font-size: 1.1rem;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border: none;
+    }
+
+    .btn:hover {
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        transform: translateY(-3px);
+    }
+
+    .text-center {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+</style>
