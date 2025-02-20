@@ -4,8 +4,8 @@
 
 ## Features
 
-- **User Authentication** *(To be executed in future)*
-  - Secure login and role-based access for teachers and admins.
+- **User Authentication**
+  - Secure login and role-based access for teachers and admins  *(To be executed in future)*.
 - **Teacher Dashboard**
   - Create, update, and delete teachers.
   - Manage lessons and quizzes.
@@ -15,17 +15,6 @@
 - **Quiz System**
   - Create, update, and delete quizzes.
   - Associate quizzes with lessons.
-- **Entity Relationships**
-  - One-to-Many: Teachers → Lessons.
-  - Many-to-Many: Lessons ↔ Quizzes (via LessonQuiz table).
-- **Database Integration**
-  - Built with ASP.NET Core, C#, and Entity Framework.
-- **Functionality**
-  - Full Create, Read, Update, and Delete (CRUD) operations for Teachers, Lessons, and Quizzes.
-  - Fetch a list of lessons by quiz ID.
-  - Fetch a list of quizzes by lesson ID.
-  - Fetch a list of lessons by teacher ID.
-  - Link and unlink lessons and quizzes.
 
 ## Technologies Used
 
