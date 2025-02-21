@@ -1,6 +1,6 @@
 # QuizMatics
 
-**QuizMatics** is an interactive mathematics resource platform designed for teachers and students. It provides tools for teacher, lesson, and quiz management.
+**QuizMatics** is an interactive mathematics resource platform designed for teachers. It provides tools for teacher, lesson, and quiz management.
 
 ## Features
 
