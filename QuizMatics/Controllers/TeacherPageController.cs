@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using QuizMatics.Interfaces;
 using QuizMatics.Models;
 using QuizMatics.Models.ViewModels;
@@ -84,6 +85,7 @@ namespace QuizMatics.Controllers
 
         // GET: TeacherPage/EditTeacher/{id}
         [HttpGet("EditTeacher/{id}")]
+        [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
             TeacherDto? teacherDto = await _teacherService.FindTeacher(id);
@@ -106,6 +108,7 @@ namespace QuizMatics.Controllers
         // POST: TeacherPage/EditTeacher/{id}
         [HttpPost("EditTeacher/{id}")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, UpdateTeacherDto updateteacherDto)
         {
             if (id != updateteacherDto.TeacherId)
@@ -130,6 +133,7 @@ namespace QuizMatics.Controllers
 
         // GET: TeacherPage/DeleteTeacher/{id}
         [HttpGet("DeleteTeacher/{id}")]
+        [Authorize]
         public async Task<IActionResult> ConfirmDelete(int id)
         {
             TeacherDto? teacherDto = await _teacherService.FindTeacher(id);
@@ -146,6 +150,7 @@ namespace QuizMatics.Controllers
         // POST: TeacherPage/DeleteTeacher/{id}
         [HttpPost("DeleteTeacher/{id}")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             ServiceResponse response = await _teacherService.DeleteTeacher(id);

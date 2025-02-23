@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Azure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -90,6 +91,7 @@ namespace QuizMatics.Controllers
         /// 204 No Content - If the update is successful, returns a success message.
         /// </returns>       
         [HttpPut("Update/{id}")]
+        [Authorize]
         public async Task<IActionResult> UpdateLesson(int id, UpdateLessonDto updatelessonDto)
         {
             if (id != updatelessonDto.LessonId)
@@ -169,6 +171,7 @@ namespace QuizMatics.Controllers
         /// api/Lessons/Delete/{id} -> Deletes the lesson associated with {id}
         /// </example>
         [HttpDelete(template:"Delete/{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteLesson(int id)
         {
             ServiceResponse response = await _lessonservice.DeleteLesson(id);

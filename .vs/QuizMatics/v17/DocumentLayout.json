@@ -1,12 +1,49 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\Web_Development\\QuizMatics\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|d:\\web_development\\quizmatics\\quizmatics\\controllers\\teacherpagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE4C7A4D-836A-484E-B569-D46410DE5645}|QuizMatics\\QuizMatics.csproj|solutionrelative:quizmatics\\controllers\\teacherpagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TeacherPageController.cs",
+              "DocumentMoniker": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Controllers\\TeacherPageController.cs",
+              "RelativeDocumentMoniker": "QuizMatics\\Controllers\\TeacherPageController.cs",
+              "ToolTip": "D:\\Web_Development\\QuizMatics\\QuizMatics\\Controllers\\TeacherPageController.cs",
+              "RelativeToolTip": "QuizMatics\\Controllers\\TeacherPageController.cs",
+              "ViewState": "AgIAAGcAAAAAAAAAAAAwwG0AAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-22T02:53:25.091Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{fbcae063-e2c0-4ab1-a516-996ea3dafb72}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

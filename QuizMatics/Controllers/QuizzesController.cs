@@ -11,6 +11,7 @@ using QuizMatics.Data.Migrations;
 using QuizMatics.Models;
 using QuizMatics.Interfaces;
 using QuizMatics.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace QuizMatics.Controllers
 {
@@ -93,6 +94,7 @@ namespace QuizMatics.Controllers
         /// 200 OK: $"Quiz with ID {id} updated successfully.": If the update is successful, returns a success message.
         /// </returns>       
         [HttpPut("Update/{id}")]
+        [Authorize]
         public async Task<IActionResult> UpdateQuiz(int id, UpdateQuizDto updatequizDto)
         {
             if (id != updatequizDto.QuizId)
@@ -173,6 +175,7 @@ namespace QuizMatics.Controllers
         /// api/Quizzes/Delete/{id} -> Deletes the quiz associated with {id}
         /// </example>
         [HttpDelete(template: "Delete/{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteQuiz(int id)
         {
             ServiceResponse response = await _quizservice.DeleteQuiz(id);

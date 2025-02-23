@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using QuizMatics.Interfaces;
 using QuizMatics.Models;
@@ -110,6 +111,7 @@ namespace QuizMatics.Controllers
 
         // GET: QuizPage/EditQuiz/{id}
         [HttpGet("EditQuiz/{id}")]
+        [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
             QuizDto? quizDto = await _quizService.FindQuiz(id);
@@ -142,6 +144,7 @@ namespace QuizMatics.Controllers
         // POST: QuizPage/EditQuiz/{id}
         [HttpPost("EditQuiz/{id}")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, UpdateQuizDto updateQuizDto)
         {
             if (id != updateQuizDto.QuizId)
@@ -170,6 +173,7 @@ namespace QuizMatics.Controllers
 
         // GET: QuizPage/DeleteQuiz/{id}
         [HttpGet("DeleteQuiz/{id}")]
+        [Authorize]
         public async Task<IActionResult> ConfirmDelete(int id)
         {
             QuizDto? quizDto = await _quizService.FindQuiz(id);

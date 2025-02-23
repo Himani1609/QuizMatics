@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using QuizMatics.Data;
 using QuizMatics.Models;
 using QuizMatics.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace QuizMatics.Controllers
 {
@@ -94,6 +95,7 @@ namespace QuizMatics.Controllers
         /// 200 OK:"Teacher with ID {id} updated successfully.": If the update is successful, returns a success message "Teacher Updated Successfully"
         /// </returns>       
         [HttpPut(template: "Update/{id}")]
+        [Authorize]
         public async Task<ActionResult> UpdateTeacher(int id, UpdateTeacherDto updateteacherDto)
         {
 
@@ -169,6 +171,7 @@ namespace QuizMatics.Controllers
         /// api/Quizzes/Delete/{id} -> Deletes the quiz associated with {id}
         /// </example>
         [HttpDelete(template: "Delete/{id}")]
+        [Authorize]
         public async Task<ActionResult> DeleteTeacher(int id)
         {
             ServiceResponse response = await _teacherservice.DeleteTeacher(id);
